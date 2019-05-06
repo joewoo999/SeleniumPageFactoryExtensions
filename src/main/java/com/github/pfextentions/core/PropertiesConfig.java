@@ -1,63 +1,69 @@
+/*
+ * Licensed to the Software Freedom Conservancy (SFC) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The SFC licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 package com.github.pfextentions.core;
 
+import com.github.pfextentions.common.Property;
 import com.github.pfextentions.common.Resources;
-import com.github.pfextentions.common.config.ConfigFactory;
-import com.github.pfextentions.common.config.ConfigKey;
 import com.github.pfextentions.core.driverContext.Driver;
 import com.github.pfextentions.core.driverContext.drivers.Chrome;
 import com.github.pfextentions.core.driverContext.drivers.Firefox;
 import com.github.pfextentions.core.driverContext.drivers.InternetExplorer;
 import org.openqa.selenium.remote.BrowserType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 
 public class PropertiesConfig implements BrowserConfig {
+    private static Logger log = LoggerFactory.getLogger(BrowserConfig.class.getSimpleName());
 
-    @ConfigKey("browserType")
-    private String browserType = BrowserType.CHROME;
+    private String browserType;
+    private String defaultDownloadDir;
+    private boolean isHeadless;
+    private boolean startMaximized;
+    private int pageLoadTime;
+    private int implicitlyWaitTime;
 
-    @ConfigKey("isHeadless")
-    private boolean isHeadless = false;
-
-    @ConfigKey("IEDriver")
-    private String IEDriver = "src/test/resources/IEDriverServer.exe";
-
-    @ConfigKey("ChromeDriver")
-    private String chromeDriver = "src/test/resources/chromedriver.exe";
-
-    @ConfigKey("GeckoDriver")
-    private String firefoxDriver = "src/test/resources/geckodriver.exe";
-
-    @ConfigKey("chromeBinary")
-    private String chromeBinary;
-
-    @ConfigKey("firefoxBinary")
-    private String firefoxBinary;
-
-    @ConfigKey("startMaximized")
-    private boolean startMaximized = true;
-
-    @ConfigKey("PageLoadTime")
-    private int pageLoadTime = 60;
-
-    @ConfigKey("ImplicitlyWaitTime")
-    private int implicitlyWaitTime = 5;
-
-    @ConfigKey("defaultDownloadDir")
-    private String defaultDownloadDir = "C:\\";
-
-    private String browserBinary;
-
+    private String chromeDriver, firefoxDriver, IEDriver;
+    private String browserBinary, chromeBinary, firefoxBinary;
     private Class<? extends Driver> driverClass;
 
     public PropertiesConfig() {
-        ConfigFactory.init("config.properties", this);
+        this(Property.loadFromFile("config.properties").toMap());
+    }
+
+    public PropertiesConfig(Map<String, String> configMap) {
+        this.browserType = configMap.getOrDefault("browserType", BrowserType.CHROME);
+        this.isHeadless = Boolean.parseBoolean(configMap.getOrDefault("isHeadless", "false"));
+        this.startMaximized = Boolean.parseBoolean(configMap.getOrDefault("startMaximized", "true"));
+        this.pageLoadTime = Integer.parseInt(configMap.getOrDefault("pageLoadTime", "60"));
+        this.implicitlyWaitTime = Integer.parseInt(configMap.get("implicitlyWaitTime"));
+        this.defaultDownloadDir = configMap.get("defaultDownloadDir");
 
         if (isChrome()) {
-            setProperty(CHROME_DRIVER_PROPERTY, chromeDriver, chromeBinary, Chrome.class);
+            setProperty(CHROME_DRIVER, chromeDriver, chromeBinary, Chrome.class);
         } else if (isFirefox()) {
-            setProperty(FIREFOX_DRIVER_PROPERTY, firefoxDriver, firefoxBinary, Firefox.class);
+            setProperty(FIREFOX_DRIVER, firefoxDriver, firefoxBinary, Firefox.class);
         } else if (isIE()) {
-            setProperty(IE_DRIVER_PROPERTY, IEDriver, null, InternetExplorer.class);
+            setProperty(IE_DRIVER, IEDriver, null, InternetExplorer.class);
         } else {
             throw new IllegalArgumentException("Unsupported browser type: " + browserType);
         }
@@ -74,13 +80,8 @@ public class PropertiesConfig implements BrowserConfig {
     }
 
     @Override
-    public String browserBinary() {
-        return browserBinary;
-    }
-
-    @Override
-    public Class<? extends Driver> driverClass() {
-        return driverClass;
+    public boolean startMaximized() {
+        return startMaximized;
     }
 
     @Override
@@ -94,15 +95,19 @@ public class PropertiesConfig implements BrowserConfig {
     }
 
     @Override
-    public boolean startMaximized() {
-        return startMaximized;
-    }
-
-    @Override
     public String defaultDownloadDir() {
         return defaultDownloadDir;
     }
 
+    @Override
+    public String browserBinary() {
+        return browserBinary;
+    }
+
+    @Override
+    public Class<? extends Driver> driverClass() {
+        return driverClass;
+    }
 
     private void setProperty(String browserProperty, String browserDriver,
                              String browserBinary, Class<? extends Driver> driverClass) {
@@ -111,10 +116,6 @@ public class PropertiesConfig implements BrowserConfig {
         this.browserBinary = Resources.getFilePath(browserBinary);
         this.defaultDownloadDir = Resources.getDirPath(defaultDownloadDir);
         this.driverClass = driverClass;
-    }
-
-    public void setBrowserType(String browserType){
-        this.browserType = browserType;
     }
 
 }
