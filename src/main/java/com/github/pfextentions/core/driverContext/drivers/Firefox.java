@@ -27,7 +27,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-public class Firefox  extends AbstractDriver implements Driver {
+public class Firefox extends AbstractDriver {
 
     public Firefox(BrowserConfig config) {
         super(config);

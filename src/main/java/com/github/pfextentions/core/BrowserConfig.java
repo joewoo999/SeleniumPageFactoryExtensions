@@ -26,7 +26,6 @@ import org.openqa.selenium.ie.InternetExplorerDriverService;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.util.Arrays;
-import java.util.Map;
 
 public interface BrowserConfig {
 

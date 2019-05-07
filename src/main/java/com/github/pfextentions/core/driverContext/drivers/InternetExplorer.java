@@ -26,7 +26,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 
-public class InternetExplorer extends AbstractDriver implements Driver {
+public class InternetExplorer extends AbstractDriver {
 
     public InternetExplorer(BrowserConfig config) {
         super(config);

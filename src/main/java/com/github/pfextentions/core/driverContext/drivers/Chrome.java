@@ -29,7 +29,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Chrome extends AbstractDriver implements Driver {
+public class Chrome extends AbstractDriver {
 
     public Chrome(BrowserConfig config) {
         super(config);

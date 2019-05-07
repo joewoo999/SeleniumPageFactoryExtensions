@@ -1,0 +1,3 @@
+/src/test/resources/chromedriver.exe
+/src/test/resources/geckodriver.exe
+/src/test/resources/IEDriverServer.exe
