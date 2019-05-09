@@ -33,10 +33,11 @@ public class InternetExplorer extends AbstractDriver {
     }
 
     @Override
-    public InternetExplorer start() {
+    public void start() {
+        this.setProperty(BrowserConfig.KEYS.IE_PROPERTY);
+
         InternetExplorerOptions ieOptions = new InternetExplorerOptions();
         driver = new InternetExplorerDriver(ieOptions);
-        return this;
     }
 
     @Override

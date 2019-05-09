@@ -32,7 +32,7 @@ public class Property {
     private Logger log = LoggerFactory.getLogger(Property.class.getSimpleName());
     private Properties prop = new Properties();
 
-    public static Property loadFromFile(String fileName) {
+    public static Property fromFile(String fileName) {
         return new Property().load(fileName);
     }
 
@@ -40,8 +40,12 @@ public class Property {
         return Maps.fromProperties(prop);
     }
 
-    private Property load(String fileName) {
+    public Properties getProperties() {
+        return prop;
+    }
 
+    private Property load(String fileName) {
+        fileName = fileName.endsWith(".properties") ? fileName : fileName.concat(".properties");
         InputStream is;
         try {
             is = new FileInputStream(fileName);
@@ -60,7 +64,7 @@ public class Property {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.debug("Properties file: {} loaded.", fileName);
+        log.info("Properties file: {} loaded.", fileName);
         return this;
     }
 }

@@ -19,53 +19,58 @@
 
 package com.github.pfextentions.core;
 
-import com.github.pfextentions.core.driverContext.Driver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.firefox.GeckoDriverService;
-import org.openqa.selenium.ie.InternetExplorerDriverService;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public interface BrowserConfig {
 
-    String browserType();
+    String type();
 
-    boolean isHeadless();
+    boolean headless();
+
+    String binary(String binaryName);
 
     int pageLoadTime();
 
     int implicitlyWaitTime();
 
-    boolean startMaximized();
+    String downloadDir();
 
-    String defaultDownloadDir();
+    String driverProperty(String propertyName);
 
-    String browserBinary();
-
-    Class<? extends Driver> driverClass();
+    Map<String, String> getMap();
 
     default boolean isChrome() {
-        return Arrays.asList(CHROME).contains(browserType());
+        return KEYS.CHROME_TYPES.contains(type());
     }
 
     default boolean isFirefox() {
-        return Arrays.asList(FIREFOX).contains(browserType());
+        return KEYS.FIREFOX_TYPES.contains(type());
     }
 
     default boolean isIE() {
-        return Arrays.asList(IE).contains(browserType());
+        return KEYS.IE_TYPES.contains(type());
     }
 
-    String CHROME_DRIVER = ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY;
+    interface KEYS {
+        String TYPE = "type";
+        String HEADLESS = "headless";
+        String PAGE_LOAD_TIME = "page.load.time";
+        String IMPLICITLY_WAIT_TIME = "implicitly.wait.time";
+        String DOWNLOAD_DIR = "download.dir";
 
-    String FIREFOX_DRIVER = GeckoDriverService.GECKO_DRIVER_EXE_PROPERTY;
+        List<String> CHROME_TYPES = Arrays.asList(BrowserType.CHROME, BrowserType.GOOGLECHROME);
+        List<String> FIREFOX_TYPES = Arrays.asList(BrowserType.FIREFOX, "ff");
+        List<String> IE_TYPES = Arrays.asList(BrowserType.IE, BrowserType.IEXPLORE, "ie");
 
-    String IE_DRIVER = InternetExplorerDriverService.IE_DRIVER_EXE_PROPERTY;
+        String CHROME_PROPERTY = "webdriver.chrome.driver";
+        String FIREFOX_PROPERTY = "webdriver.gecko.driver";
+        String IE_PROPERTY = "webdriver.ie.driver";
 
-    String[] CHROME = {BrowserType.CHROME, BrowserType.GOOGLECHROME};
-
-    String[] FIREFOX = {BrowserType.FIREFOX, "ff"};
-
-    String[] IE = {BrowserType.IE, BrowserType.IEXPLORE, "ie"};
+        String CHROME_BINARY = "chrome.binary";
+        String FIREFOX_BINARY = "firefox.binary";
+    }
 }

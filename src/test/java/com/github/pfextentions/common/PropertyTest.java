@@ -17,22 +17,30 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.driverContext;
+package com.github.pfextentions.common;
 
-import org.openqa.selenium.WebDriver;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-public interface Driver {
+import java.util.Properties;
 
-    void start();
+public class PropertyTest {
+    private static Property prop;
 
-    void setProperty(String propertyName);
+    @BeforeClass
+    public static void setUp() {
+        prop = Property.fromFile("config");
+    }
 
-    WebDriver getWebDriver();
+    @Test
+    public void toMap() {
+        Assert.assertFalse(prop.toMap().isEmpty());
+    }
 
-    void managePageLoadTime(int timeInSecond);
-
-    void manageImplicitlyWaitTime(int timeInSecond);
-
-    void quit();
-
+    @Test
+    public void getProperties() {
+        Properties props = prop.getProperties();
+        Assert.assertFalse(props.isEmpty());
+    }
 }

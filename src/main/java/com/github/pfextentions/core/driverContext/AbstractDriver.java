@@ -19,7 +19,9 @@
 
 package com.github.pfextentions.core.driverContext;
 
+import com.github.pfextentions.common.Resources;
 import com.github.pfextentions.core.BrowserConfig;
+import com.google.common.base.Strings;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Objects;
@@ -29,18 +31,23 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public abstract class AbstractDriver implements Driver {
 
     protected WebDriver driver;
-    protected String binary, downloadDir;
-    protected boolean startMaximized, isHeadless;
+    protected BrowserConfig config;
+    protected String downloadDir;
+    protected boolean headless;
 
     public AbstractDriver(BrowserConfig config) {
-        this.binary = config.browserBinary();
-        this.downloadDir = config.defaultDownloadDir();
-        this.startMaximized = config.startMaximized();
-        this.isHeadless = config.isHeadless();
+        this.config = config;
+        this.downloadDir = Resources.getPath(config.downloadDir());
+        this.headless = config.headless();
     }
 
     @Override
-    public abstract AbstractDriver start();
+    public void setProperty(String propertyName) {
+        String propertyFile = Resources.getPath(config.driverProperty(propertyName));
+        if (!Strings.isNullOrEmpty(propertyFile)) {
+            System.setProperty(propertyName, propertyFile);
+        }
+    }
 
     @Override
     public WebDriver getWebDriver() {
@@ -49,15 +56,13 @@ public abstract class AbstractDriver implements Driver {
     }
 
     @Override
-    public AbstractDriver managePageLoadTime(int timeInSecond) {
+    public void managePageLoadTime(int timeInSecond) {
         getWebDriver().manage().timeouts().pageLoadTimeout(timeInSecond, SECONDS);
-        return this;
     }
 
     @Override
-    public AbstractDriver manageImplicitlyWaitTime(int timeInSecond) {
+    public void manageImplicitlyWaitTime(int timeInSecond) {
         getWebDriver().manage().timeouts().implicitlyWait(timeInSecond, SECONDS);
-        return this;
     }
 
     @Override

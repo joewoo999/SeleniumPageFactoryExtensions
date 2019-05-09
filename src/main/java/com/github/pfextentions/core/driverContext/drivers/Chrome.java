@@ -21,7 +21,6 @@ package com.github.pfextentions.core.driverContext.drivers;
 
 import com.github.pfextentions.core.BrowserConfig;
 import com.github.pfextentions.core.driverContext.AbstractDriver;
-import com.github.pfextentions.core.driverContext.Driver;
 import com.google.common.base.Strings;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -36,10 +35,13 @@ public class Chrome extends AbstractDriver {
     }
 
     @Override
-    public Chrome start() {
+    public void start() {
+        this.setProperty(BrowserConfig.KEYS.CHROME_PROPERTY);
+
         ChromeOptions chromeOptions = new ChromeOptions()
                 .addArguments("--disable-popup-blocking");
 
+        String binary = config.binary(BrowserConfig.KEYS.CHROME_BINARY);
         if (!Strings.isNullOrEmpty(binary)) {
             chromeOptions.setBinary(binary);
         }
@@ -51,12 +53,10 @@ public class Chrome extends AbstractDriver {
             chromeOptions.setExperimentalOption("prefs", prefs);
         }
 
-        if (startMaximized)
-            chromeOptions.addArguments("--start-maximized");
+        chromeOptions.addArguments("--start-maximized");
 
-        chromeOptions.setHeadless(isHeadless);
+        chromeOptions.setHeadless(headless);
 
         driver = new ChromeDriver(chromeOptions);
-        return this;
     }
 }

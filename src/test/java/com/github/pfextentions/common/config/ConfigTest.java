@@ -4,7 +4,7 @@ public class ConfigTest {
     @ConfigKey("browserType")
     public String browserType;
 
-    @ConfigKey("isHeadless")
+    @ConfigKey("headless")
     public boolean isHeadless;
 
     @ConfigKey("IEDriver")

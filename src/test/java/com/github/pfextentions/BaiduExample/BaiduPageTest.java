@@ -1,6 +1,6 @@
 package com.github.pfextentions.BaiduExample;
 
-import com.github.pfextentions.core.factory.DriverFactory;
+import com.github.pfextentions.core.driverContext.DriverFactory;
 import com.github.pfextentions.core.page.pageObject.commands.options.GetSelectedOptionText;
 import com.github.pfextentions.core.page.pageObject.commands.options.OptionByIndex;
 import com.github.pfextentions.core.page.pageObject.commands.options.OptionByText;
@@ -28,7 +28,7 @@ public class BaiduPageTest {
         p.searchBox.waitUntil(Be.visible, 10);
         p.assertPageOpened();
 
-//        p.setting.perform(MoveTo::new);
+        //p.setting.perform(MoveTo::);
         sleep();
         p.seniorSearchLink.waitUntil(Be.visible, 10);
         //p.seniorSearchLink.perform(LeftClick::new);

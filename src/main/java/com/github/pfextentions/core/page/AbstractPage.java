@@ -21,7 +21,6 @@ package com.github.pfextentions.core.page;
 
 import com.github.pfextentions.core.driverContext.DriverContext;
 import com.github.pfextentions.core.driverContext.DriverScreenshot;
-import com.github.pfextentions.core.factory.PageObjectFactory;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -21,7 +21,6 @@ package com.github.pfextentions.core.driverContext.drivers;
 
 import com.github.pfextentions.core.BrowserConfig;
 import com.github.pfextentions.core.driverContext.AbstractDriver;
-import com.github.pfextentions.core.driverContext.Driver;
 import com.google.common.base.Strings;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
@@ -34,7 +33,9 @@ public class Firefox extends AbstractDriver {
     }
 
     @Override
-    public Firefox start() {
+    public void start() {
+        this.setProperty(BrowserConfig.KEYS.FIREFOX_PROPERTY);
+
         FirefoxOptions ffOptions = new FirefoxOptions()
                 .setLogLevel(FirefoxDriverLogLevel.FATAL);
 
@@ -47,13 +48,13 @@ public class Firefox extends AbstractDriver {
                     .addPreference("browser.helperApps.neverAsk.saveToDisk", fileType);
         }
 
+        String binary = config.binary(BrowserConfig.KEYS.FIREFOX_BINARY);
         if (!Strings.isNullOrEmpty(binary)) {
             ffOptions.setBinary(binary);
         }
 
-        ffOptions.setHeadless(isHeadless);
+        ffOptions.setHeadless(headless);
 
         driver = new FirefoxDriver(ffOptions);
-        return this;
     }
 }

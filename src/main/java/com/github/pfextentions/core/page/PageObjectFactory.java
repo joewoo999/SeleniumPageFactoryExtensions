@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.factory;
+package com.github.pfextentions.core.page;
 
 import com.github.pfextentions.core.page.pageFactory.PageFieldDecorator;
 import org.openqa.selenium.WebDriver;

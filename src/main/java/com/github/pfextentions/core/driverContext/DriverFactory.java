@@ -17,19 +17,30 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.factory;
+package com.github.pfextentions.core.driverContext;
 
 import com.github.pfextentions.core.BrowserConfig;
-import com.github.pfextentions.core.driverContext.Driver;
-import com.github.pfextentions.core.driverContext.DriverContext;
 import com.github.pfextentions.core.PropertiesConfig;
+import com.github.pfextentions.core.driverContext.drivers.Chrome;
+import com.github.pfextentions.core.driverContext.drivers.Firefox;
+import com.github.pfextentions.core.driverContext.drivers.InternetExplorer;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DriverFactory {
 
     private static Driver driver;
+    protected static Map<String, Class<? extends Driver>> driverClasses = new HashMap<>();
+
+    static {
+        addDriverClass(BrowserConfig.KEYS.CHROME_TYPES, Chrome.class);
+        addDriverClass(BrowserConfig.KEYS.FIREFOX_TYPES, Firefox.class);
+        addDriverClass(BrowserConfig.KEYS.IE_TYPES, InternetExplorer.class);
+    }
 
     public static void setUp() {
         setUp(new PropertiesConfig());
@@ -37,10 +48,14 @@ public class DriverFactory {
 
     public static void setUp(BrowserConfig config) {
         try {
-            Constructor constructor = config.driverClass().getConstructor(BrowserConfig.class);
+            Constructor constructor = driverClasses.get(config.type()).getConstructor(BrowserConfig.class);
             driver = (Driver) constructor.newInstance(config);
+            driver.start();
+            if (config.pageLoadTime() > 0)
+                driver.managePageLoadTime(config.pageLoadTime());
 
-            driver.start().managePageLoadTime(config.pageLoadTime());
+            if (config.implicitlyWaitTime() > 0)
+                driver.manageImplicitlyWaitTime(config.implicitlyWaitTime());
 
             DriverContext.set(config, driver.getWebDriver());
 
@@ -53,5 +68,9 @@ public class DriverFactory {
     public static void tearDown() {
         driver.quit();
         DriverContext.removeAll();
+    }
+
+    public static void addDriverClass(List<String> typeList, Class<? extends Driver> clazz) {
+        typeList.forEach(type -> driverClasses.putIfAbsent(type, clazz));
     }
 }

@@ -1,6 +1,5 @@
 package com.github.pfextentions.core.driverContext;
 
-import com.github.pfextentions.core.factory.DriverFactory;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -26,7 +25,7 @@ public class DriverScreenshotTest {
 
     @Test
     public void take1() {
-        DriverScreenshot.take((TakesScreenshot) DriverContext.getDriver(), fileName);
+        DriverScreenshot.take((TakesScreenshot) DriverContext.getDriver(), fileName + ".jpg");
         Assert.assertTrue(FileUtils.waitFor(new File(fileName), 5));
     }
 
