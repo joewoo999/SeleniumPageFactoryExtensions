@@ -19,7 +19,9 @@
 
 package com.github.pfextentions.core.page.pageObject.function;
 
-import java.util.function.Supplier;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
-public interface RadioGroupSupplier<R> extends Supplier<RadioGroupFunction<R>> {
+import java.util.function.Consumer;
+
+public interface ActionConsumer extends Consumer<ElementLocator> {
 }

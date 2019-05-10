@@ -17,32 +17,24 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.options;
+package com.github.pfextentions.core.page.pageObject.functions.actions;
 
-import com.github.pfextentions.core.page.pageObject.PageElementType;
-import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
-import org.openqa.selenium.WebElement;
+import com.github.pfextentions.core.driverContext.DriverContext;
+import com.github.pfextentions.core.page.pageObject.function.ActionConsumer;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.Select;
 
-public class OptionByText implements OptionFunction<WebElement> {
-
+public class DoubleLeftClick implements ActionConsumer {
     private ElementLocator locator;
-    private String text;
 
     @Override
-    public WebElement apply(ElementLocator locator, Object[] objects) {
+    public void accept(ElementLocator locator) {
         this.locator = locator;
-        this.text = (String) objects[0];
 
-        WebElement element = PageElementType.SELECT.findAndAssertElementType(locator);
-        new Select(element).selectByVisibleText(text);
-        return element;
+        DriverContext.getActions().doubleClick(locator.findElement()).perform();
     }
 
     @Override
     public String toString() {
-        return String.format("Select option with visible text:'%s' at element:%s.",
-                text, locator);
+        return String.format("(ActionFunction)Double click element:%s.", locator);
     }
 }

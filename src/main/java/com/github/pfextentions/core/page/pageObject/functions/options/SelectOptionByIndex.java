@@ -17,24 +17,34 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.actions;
+package com.github.pfextentions.core.page.pageObject.functions.options;
 
-import com.github.pfextentions.core.driverContext.DriverContext;
-import com.github.pfextentions.core.page.pageObject.function.ActionFunction;
+import com.github.pfextentions.core.page.pageObject.PageElementType;
+import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
+import org.openqa.selenium.support.ui.Select;
 
-public class DoubleLeftClick implements ActionFunction {
+public class SelectOptionByIndex implements OptionFunction<WebElement> {
     private ElementLocator locator;
-    
+    private int index;
+
+    public SelectOptionByIndex(int index) {
+        this.index = index;
+    }
+
     @Override
-    public void accept(ElementLocator locator) {
+    public WebElement apply(ElementLocator locator) {
         this.locator = locator;
 
-        DriverContext.getActions().doubleClick(locator.findElement()).perform();
+        WebElement element = PageElementType.SELECT.findAndAssertElementType(locator);
+        new Select(element).selectByIndex(index);
+        return element;
     }
 
     @Override
     public String toString() {
-        return String.format("(ActionFunction)Double click element:%s.", locator);
+        return String.format("Select option with index:'%s' at element:%s.",
+                index, locator);
     }
 }

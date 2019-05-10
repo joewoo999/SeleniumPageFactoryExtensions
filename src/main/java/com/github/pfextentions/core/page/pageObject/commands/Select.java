@@ -19,34 +19,39 @@
 
 package com.github.pfextentions.core.page.pageObject.commands;
 
-import com.github.pfextentions.core.page.pageObject.Command;
 import com.github.pfextentions.core.page.pageObject.function.CommandFunction;
 import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
 import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
-import com.github.pfextentions.core.page.pageObject.function.RadioGroupSupplier;
-import com.github.pfextentions.core.page.pageObject.function.SelectSupplier;
+import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 
 public class Select implements CommandFunction<Object> {
-    private Command command;
+    private String toString;
 
     @Override
     public Object apply(ElementLocator locator, Object[] objects) {
+        Object object;
         Class cls = objects[0].getClass();
-        if (SelectSupplier.class.isAssignableFrom(cls)) {
-            command = (OptionFunction) ((SelectSupplier) objects[0]).get();
-        } else if (RadioGroupSupplier.class.isAssignableFrom(cls)) {
-            command = (RadioGroupFunction) ((SelectSupplier) objects[0]).get();
-        } else {
-            throw new IllegalArgumentException("Unsupported command class type:" + cls.getSimpleName());
-        }
 
-        return command.execute(locator, (Object[]) objects[1]);
+        if (OptionFunction.class.isAssignableFrom(cls)) {
+            OptionFunction<?> command = (OptionFunction) objects[0];
+            object = command.apply(locator);
+            toString = command.toString();
+
+        } else if (RadioGroupFunction.class.isAssignableFrom(cls)) {
+            RadioGroupFunction<?> command = (RadioGroupFunction) objects[0];
+            object = command.apply(locator);
+            toString = command.toString();
+
+        } else {
+            throw new UnsupportedCommandException("Unsupported command class type:" + cls.getSimpleName());
+        }
+        return object;
     }
 
     @Override
     public String toString() {
-        return command.toString();
+        return toString;
     }
 }

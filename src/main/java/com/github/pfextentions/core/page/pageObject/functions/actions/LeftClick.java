@@ -17,14 +17,24 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject;
+package com.github.pfextentions.core.page.pageObject.functions.actions;
 
-import com.github.pfextentions.core.page.pageObject.commands.options.OptionByText;
-import com.github.pfextentions.core.page.pageObject.function.CommandFunction;
+import com.github.pfextentions.core.driverContext.DriverContext;
+import com.github.pfextentions.core.page.pageObject.function.ActionConsumer;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
-public class Selects {
+public class LeftClick implements ActionConsumer {
+    private ElementLocator locator;
 
-    public static CommandFunction optionByText(String text) {
-        return new OptionByText();
+    @Override
+    public void accept(ElementLocator locator) {
+        this.locator = locator;
+
+        DriverContext.getActions().click(locator.findElement()).perform();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(ActionFunction)Click element:%s.", locator);
     }
 }

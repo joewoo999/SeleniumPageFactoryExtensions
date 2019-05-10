@@ -17,33 +17,25 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.radioGroup;
+package com.github.pfextentions.core.page.pageObject.functions;
 
 import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
+import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByIndex;
+import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByLabelText;
+import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByValue;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
 
-public class RadioByIndex implements RadioGroupFunction<WebElement> {
-    private ElementLocator locator;
-    private int index;
+public class Radios {
 
-
-    @Override
-    public WebElement apply(ElementLocator locator, Object[] objects) {
-        this.locator = locator;
-        this.index = (int) objects[0];
-
-        WebElement radio = locator.findElements().get(index);
-
-        if (!radio.isSelected()) {
-            radio.click();
-        }
-        return radio;
+    public static RadioGroupFunction<WebElement> byIndex(int index) {
+        return new SelectRadioByIndex(index);
     }
 
-    @Override
-    public String toString() {
-        return String.format("Select radio with index:%d at element:%s.",
-                index, locator);
+    public static RadioGroupFunction<WebElement> byLabelText(String text) {
+        return new SelectRadioByLabelText(text);
+    }
+
+    public static RadioGroupFunction<WebElement> byValue(String value) {
+        return new SelectRadioByValue(value);
     }
 }

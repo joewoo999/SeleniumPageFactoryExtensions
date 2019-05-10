@@ -17,32 +17,42 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.options;
+package com.github.pfextentions.core.page.pageObject.functions.radioGroup;
 
-import com.github.pfextentions.core.page.pageObject.PageElementType;
-import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
+import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.Select;
 
-public class OptionByValue implements OptionFunction<WebElement> {
+import java.util.List;
 
+public class SelectRadioByValue implements RadioGroupFunction<WebElement> {
     private ElementLocator locator;
     private String value;
 
-    @Override
-    public WebElement apply(ElementLocator locator, Object[] objects) {
-        this.locator = locator;
-        this.value = (String) objects[0];
+    public SelectRadioByValue(String value) {
+        this.value = value;
+    }
 
-        WebElement element = PageElementType.SELECT.findAndAssertElementType(locator);
-        new Select(element).selectByValue(value);
-        return element;
+    @Override
+    public WebElement apply(ElementLocator locator) {
+        this.locator = locator;
+
+        List<WebElement> radios = locator.findElements();
+        for (WebElement radio : radios) {
+            if (!value.equals(radio.getAttribute("value")))
+                continue;
+
+            if (!radio.isSelected())
+                radio.click();
+
+            return radio;
+        }
+        return null;
     }
 
     @Override
     public String toString() {
-        return String.format("Select option with value:'%s' at element:%s.",
+        return String.format("Select radio with value:'%s' at element:%s.",
                 value, locator);
     }
 }

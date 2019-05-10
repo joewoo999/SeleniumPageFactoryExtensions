@@ -54,6 +54,9 @@ public class BaiduPage extends AbstractPage {
     @FindBy(name = "gpc")
     PageElement searchYear;
 
+    @FindBy(name = "q5")
+    PageElement keywordsPosition;
+
     @FindBy(id = "xx")
     PageElement wr;
 

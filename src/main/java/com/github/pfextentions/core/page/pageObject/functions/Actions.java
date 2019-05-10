@@ -17,29 +17,24 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.actions;
+package com.github.pfextentions.core.page.pageObject.functions;
 
-import com.github.pfextentions.core.driverContext.DriverContext;
-import com.github.pfextentions.core.page.pageObject.function.ActionFunction;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
+import com.github.pfextentions.core.page.pageObject.function.ActionConsumer;
+import com.github.pfextentions.core.page.pageObject.functions.actions.DoubleLeftClick;
+import com.github.pfextentions.core.page.pageObject.functions.actions.TypeText;
 
-public class TypeText implements ActionFunction {
-    private ElementLocator locator;
-    private String text;
+public class Actions {
 
-    public TypeText(String text) {
-        this.text = text;
+    public static ActionConsumer DOUBLE_CLICK = new DoubleLeftClick();
+
+    public static ActionConsumer CLICK = new DoubleLeftClick();
+
+    public static ActionConsumer MOVE_TO = new DoubleLeftClick();
+
+    public static ActionConsumer RIGHT_CLICK = new DoubleLeftClick();
+
+    public static ActionConsumer type_text(String text) {
+        return new TypeText(text);
     }
 
-    @Override
-    public void accept(ElementLocator locator) {
-        this.locator = locator;
-
-        DriverContext.getActions().sendKeys(locator.findElement(), text).perform();
-    }
-
-    @Override
-    public String toString() {
-        return String.format("(ActionFunction)Type text:%s into element:%s.", text, locator);
-    }
 }

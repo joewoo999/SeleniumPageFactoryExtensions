@@ -17,24 +17,30 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.actions;
+package com.github.pfextentions.core.page.pageObject.functions.options;
 
-import com.github.pfextentions.core.driverContext.DriverContext;
-import com.github.pfextentions.core.page.pageObject.function.ActionFunction;
+import com.github.pfextentions.core.page.pageObject.PageElementType;
+import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
+import org.openqa.selenium.support.ui.Select;
 
-public class LeftClick implements ActionFunction {
+public class GetSelectedOptionText implements OptionFunction<String> {
     private ElementLocator locator;
+    private String selectedText;
 
     @Override
-    public void accept(ElementLocator locator) {
+    public String apply(ElementLocator locator) {
         this.locator = locator;
 
-        DriverContext.getActions().click(locator.findElement()).perform();
+        WebElement element = PageElementType.SELECT.findAndAssertElementType(locator);
+        selectedText = new Select(element).getFirstSelectedOption().getText();
+        return selectedText;
     }
 
     @Override
     public String toString() {
-        return String.format("(ActionFunction)Click element:%s.", locator);
+        return String.format("The selected option text of element:%s is '%s' .",
+                locator, selectedText);
     }
 }

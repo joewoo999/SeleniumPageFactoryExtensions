@@ -17,11 +17,35 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.function;
+package com.github.pfextentions.core.page.pageObject.functions.radioGroup;
 
+import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
-import java.util.function.Consumer;
+public class SelectRadioByIndex implements RadioGroupFunction<WebElement> {
+    private ElementLocator locator;
+    private int index;
 
-public interface ActionFunction extends Consumer<ElementLocator> {
+    public SelectRadioByIndex(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public WebElement apply(ElementLocator locator) {
+        this.locator = locator;
+
+        WebElement radio = locator.findElements().get(index);
+
+        if (!radio.isSelected()) {
+            radio.click();
+        }
+        return radio;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Select radio with index:%d at element:%s.",
+                index, locator);
+    }
 }

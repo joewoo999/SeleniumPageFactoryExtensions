@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.options;
+package com.github.pfextentions.core.page.pageObject.functions.options;
 
 import com.github.pfextentions.core.page.pageObject.PageElementType;
 import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
@@ -25,22 +25,27 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.ui.Select;
 
-public class GetSelectedOptionText implements OptionFunction<String> {
+public class SelectOptionByText implements OptionFunction<WebElement> {
+
     private ElementLocator locator;
-    private String selectedText;
+    private String text;
+
+    public SelectOptionByText(String text) {
+        this.text = text;
+    }
 
     @Override
-    public String apply(ElementLocator locator, Object[] objects) {
+    public WebElement apply(ElementLocator locator) {
         this.locator = locator;
 
         WebElement element = PageElementType.SELECT.findAndAssertElementType(locator);
-        selectedText = new Select(element).getFirstSelectedOption().getText();
-        return selectedText;
+        new Select(element).selectByVisibleText(text);
+        return element;
     }
 
     @Override
     public String toString() {
-        return String.format("The selected option text of element:%s is '%s' .",
-                locator, selectedText);
+        return String.format("Select option with visible text:'%s' at element:%s.",
+                text, locator);
     }
 }

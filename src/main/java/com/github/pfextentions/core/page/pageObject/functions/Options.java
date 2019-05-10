@@ -17,31 +17,28 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.options;
+package com.github.pfextentions.core.page.pageObject.functions;
 
-import com.github.pfextentions.core.page.pageObject.PageElementType;
 import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
+import com.github.pfextentions.core.page.pageObject.functions.options.GetSelectedOptionText;
+import com.github.pfextentions.core.page.pageObject.functions.options.SelectOptionByIndex;
+import com.github.pfextentions.core.page.pageObject.functions.options.SelectOptionByText;
+import com.github.pfextentions.core.page.pageObject.functions.options.SelectOptionByValue;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.Select;
 
-public class OptionByIndex implements OptionFunction<WebElement> {
-    private ElementLocator locator;
-    private int index;
+public class Options {
 
-    @Override
-    public WebElement apply(ElementLocator locator,Object[] objects) {
-        this.locator = locator;
-        this.index = (int)objects[0];
+    public static OptionFunction<String> SELECTED_TEXT = new GetSelectedOptionText();
 
-        WebElement element = PageElementType.SELECT.findAndAssertElementType(locator);
-        new Select(element).selectByIndex(index);
-        return element;
+    public static OptionFunction<WebElement> byIndex(int index) {
+        return new SelectOptionByIndex(index);
     }
 
-    @Override
-    public String toString() {
-        return String.format("Select option with index:'%s' at element:%s.",
-                index, locator);
+    public static OptionFunction<WebElement> byText(String text) {
+        return new SelectOptionByText(text);
+    }
+
+    public static OptionFunction<WebElement> byValue(String value) {
+        return new SelectOptionByValue(value);
     }
 }

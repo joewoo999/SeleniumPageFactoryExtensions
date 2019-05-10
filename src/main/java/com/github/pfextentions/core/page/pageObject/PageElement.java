@@ -146,9 +146,9 @@ public interface PageElement extends WebElement {
     /**
      * Perform simulate actions at this element.
      *
-     * @param supplier the supplier of {@link ActionFunction}.
+     * @param consumer the supplier of {@link ActionConsumer}.
      */
-    void perform(ActionSupplier supplier, Object... objects);
+    void perform(ActionConsumer consumer);
 
     /**
      * Select option or get attribute from given element.
@@ -157,11 +157,11 @@ public interface PageElement extends WebElement {
      * <br/>
      * '&lt;select .../&gt;'
      *
-     * @param supplier the supplier of {@link OptionFunction}.
+     * @param function the supplier of {@link OptionFunction}.
      * @param <R>      the return type
      * @return the return value of Functions
      */
-    <R> R select(SelectSupplier<R> supplier, Object... objects);
+    <R> R select(OptionFunction<R> function);
 
     /**
      * Select radio or get attribute from given element.
@@ -170,11 +170,11 @@ public interface PageElement extends WebElement {
      * <br/>
      * '&lt;input type="radio" .../&gt;'
      *
-     * @param supplier the supplier of {@link RadioGroupFunction}.
+     * @param function the supplier of {@link RadioGroupFunction}.
      * @param <R>      the return type
      * @return the return value of Functions
      */
-    <R> R select(RadioGroupSupplier<R> supplier, Object... objects);
+    <R> R select(RadioGroupFunction<R> function);
 
     /**
      * Set the element value by javascript

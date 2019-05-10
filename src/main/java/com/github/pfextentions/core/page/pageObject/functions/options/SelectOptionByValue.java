@@ -17,24 +17,35 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.actions;
+package com.github.pfextentions.core.page.pageObject.functions.options;
 
-import com.github.pfextentions.core.driverContext.DriverContext;
-import com.github.pfextentions.core.page.pageObject.function.ActionFunction;
+import com.github.pfextentions.core.page.pageObject.PageElementType;
+import com.github.pfextentions.core.page.pageObject.function.OptionFunction;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
+import org.openqa.selenium.support.ui.Select;
 
-public class RightClick implements ActionFunction {
+public class SelectOptionByValue implements OptionFunction<WebElement> {
+
     private ElementLocator locator;
+    private String value;
+
+    public SelectOptionByValue(String value) {
+        this.value = value;
+    }
 
     @Override
-    public void accept(ElementLocator locator) {
+    public WebElement apply(ElementLocator locator) {
         this.locator = locator;
 
-        DriverContext.getActions().contextClick(locator.findElement()).perform();
+        WebElement element = PageElementType.SELECT.findAndAssertElementType(locator);
+        new Select(element).selectByValue(value);
+        return element;
     }
 
     @Override
     public String toString() {
-        return String.format("(ActionFunction)Right click element:%s.", locator);
+        return String.format("Select option with value:'%s' at element:%s.",
+                value, locator);
     }
 }

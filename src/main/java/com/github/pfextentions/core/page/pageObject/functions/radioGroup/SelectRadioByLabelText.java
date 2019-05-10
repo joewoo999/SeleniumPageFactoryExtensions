@@ -17,8 +17,9 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject.commands.radioGroup;
+package com.github.pfextentions.core.page.pageObject.functions.radioGroup;
 
+import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
@@ -26,16 +27,16 @@ import org.openqa.selenium.support.pagefactory.ElementLocator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class RadioByLabelText implements java.util.function.Function<ElementLocator, Boolean> {
+public class SelectRadioByLabelText implements RadioGroupFunction<WebElement> {
     private ElementLocator locator;
     private String text;
 
-    public RadioByLabelText(String text) {
+    public SelectRadioByLabelText(String text) {
         this.text = text;
     }
 
     @Override
-    public Boolean apply(ElementLocator locator) {
+    public WebElement apply(ElementLocator locator) {
         this.locator = locator;
 
         List<WebElement> radios = locator.findElements();
@@ -56,9 +57,9 @@ public class RadioByLabelText implements java.util.function.Function<ElementLoca
 
             if (!radio.isSelected())
                 radio.click();
-            return true;
+            return radio;
         }
-        return false;
+        return null;
     }
 
     @Override
