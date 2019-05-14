@@ -1,6 +1,7 @@
 package com.github.pfextentions.BaiduExample;
 
 import com.github.pfextentions.core.driverContext.DriverFactory;
+import com.github.pfextentions.core.page.pageObject.Commands;
 import com.github.pfextentions.core.page.pageObject.functions.Actions;
 import com.github.pfextentions.core.page.pageObject.functions.Options;
 import com.github.pfextentions.core.page.pageObject.expectedCondtion.Be;
@@ -16,6 +17,7 @@ public class BaiduPageTest {
     @BeforeClass
     public static void before() {
         DriverFactory.setUp();
+        Commands.getInstance().add(ExText.class);
     }
 
     @Test
@@ -24,6 +26,8 @@ public class BaiduPageTest {
         p.open();
         p.maximizeWindow();
 
+        p.searchBoxEx.exText();
+//        p.exAll.get(0).exText();
         p.searchBox.waitUntil(Be.visible, 10);
         p.assertPageOpened();
 

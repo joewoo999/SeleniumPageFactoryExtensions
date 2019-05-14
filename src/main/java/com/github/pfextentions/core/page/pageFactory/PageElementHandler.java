@@ -58,7 +58,6 @@ public class PageElementHandler implements InvocationHandler {
         Object result = command.execute(locator, objects);
 
         log.debug(command.toString());
-//        log.debug(String.valueOf(command.hashCode()));
         return result;
     }
 

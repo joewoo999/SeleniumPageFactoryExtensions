@@ -3,6 +3,7 @@ package com.github.pfextentions.BaiduExample;
 import com.github.pfextentions.core.page.AbstractPage;
 import com.github.pfextentions.core.page.pageObject.PageElement;
 import com.github.pfextentions.core.page.pageObject.expectedCondtion.Be;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -29,6 +30,9 @@ public class BaiduPage extends AbstractPage {
 
     @FindBy(id = "kw")
     PageElement searchBox;
+
+    @FindBy(id = "kw")
+    ElementEx searchBoxEx;
 
     @FindBy(name = "tj_briicon")
     PageElement more;
@@ -61,7 +65,10 @@ public class BaiduPage extends AbstractPage {
     PageElement wr;
 
     @FindAll({@FindBy(tagName = "span")})
-    List<PageElement> all;
+    List<WebElement> all;
+
+    @FindAll({@FindBy(tagName = "span")})
+    List<WebElement> exAll;
 
     @FindBys({@FindBy(css = "#form"), @FindBy(id = "kw")})
     PageElement bys;
