@@ -79,8 +79,13 @@ public class PageFieldDecorator implements FieldDecorator {
 
         Type listType = ((ParameterizedType) genericType).getActualTypeArguments()[0];
 
-        if (!PageElement.class.isAssignableFrom((Class) listType))
-            return false;
+        if (!WebElement.class.equals(listType)) {
+//        if (!PageElement.class.isAssignableFrom((Class) listType))
+//            return false;
+            throw new IllegalArgumentException(String
+                    .format("Unsupported list parameterized type:[%s] of field:[%s]",
+                            listType.getTypeName(), field.getName()));
+        }
 
         return field.getAnnotation(FindBy.class) != null ||
                 field.getAnnotation(FindBys.class) != null ||

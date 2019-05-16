@@ -27,7 +27,8 @@ public class BaiduPageTest {
         p.maximizeWindow();
 
         p.searchBoxEx.exText();
-//        p.exAll.get(0).exText();
+        System.out.println(p.all.get(0).getText());
+//        System.out.println(p.exAll.get(0).getText());
         p.searchBox.waitUntil(Be.visible, 10);
         p.assertPageOpened();
 

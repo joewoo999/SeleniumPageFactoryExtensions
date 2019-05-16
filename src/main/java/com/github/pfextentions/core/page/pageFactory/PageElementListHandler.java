@@ -23,61 +23,33 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+/**
+ * dev...
+ */
 public class PageElementListHandler implements InvocationHandler {
     private final ElementLocator locator;
-    private int index;
 
-    public PageElementListHandler(ElementLocator locator, int index) {
+    public PageElementListHandler(ElementLocator locator) {
         this.locator = locator;
-        this.index = index;
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] objects) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] objects) {
         List<? extends WebElement> elements = locator.findElements();
 
-        try {
-            return method.invoke(elements, objects);
-        } catch (InvocationTargetException e) {
-            // Unwrap the underlying exception
-            throw e.getCause();
+        switch (method.getName().toLowerCase()) {
+            case "size":
+                return elements.size();
+            case "get":
+                return null;
+            default:
+                throw new UnsupportedOperationException();
+
         }
     }
-//
-//    private class ProxyList<T extends PageElement> implements List<T>{
-//        private ElementLocator locator;
-//        private List<WebElement> webElements;
-//        private List<T> pageElements = new ArrayList<>();
-//
-//        public ProxyList(ElementLocator locator) {
-//            this.locator = locator;
-//            this.webElements = locator.findElements();
-//            InvocationHandler handler = new PageElementHandler(locator);
-//            for(WebElement ele:webElements){
-//
-//
-//                Object proxy = Proxy.newProxyInstance(
-//                        this.getClass().getClassLoader(),
-//                        new Class[]{clazz, WrapsElement.class, Locatable.class}, handler);
-//
-//                pageElements.add(clazz.cast(proxy));
-//            }
-//        }
-//
-//        @Override
-//        public int size() {
-//            return webElements.size();
-//        }
-//
-//        @Override
-//        public boolean isEmpty() {
-//            return webElements.isEmpty();
-//        }
-//
-//    }
+
 }
 
