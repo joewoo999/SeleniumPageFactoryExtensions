@@ -20,33 +20,49 @@
 package com.github.pfextentions.core.page.pageFactory;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WrapsElement;
+import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 /**
  * dev...
  */
 public class PageElementListHandler implements InvocationHandler {
+    private final Class clazz;
+    private final ClassLoader loader;
     private final ElementLocator locator;
 
-    public PageElementListHandler(ElementLocator locator) {
+
+    public PageElementListHandler(Class clazz, ClassLoader loader, ElementLocator locator) {
         this.locator = locator;
+        this.clazz = clazz;
+        this.loader = loader;
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] objects) {
+    public Object invoke(Object object, Method method, Object[] objects) {
         List<? extends WebElement> elements = locator.findElements();
 
         switch (method.getName().toLowerCase()) {
             case "size":
                 return elements.size();
+            case "isempty":
+                return elements.isEmpty();
             case "get":
-                return null;
+                ((PageElementLocator) locator).setIndex((int) objects[0]);
+                InvocationHandler handler = new PageElementHandler(locator);
+
+                Object proxy = Proxy.newProxyInstance(
+                        loader, new Class[]{clazz}, handler);
+
+                return clazz.cast(proxy);
             default:
-                throw new UnsupportedOperationException();
+                throw new UnsupportedOperationException(method.getName());
 
         }
     }

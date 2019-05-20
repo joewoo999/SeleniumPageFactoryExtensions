@@ -43,4 +43,11 @@ public class PropertyTest {
         Properties props = prop.getProperties();
         Assert.assertFalse(props.isEmpty());
     }
+
+    @Test
+    public void commands(){
+        Property p = Property.fromFile("commands");
+        System.out.println(p.toMap());
+    }
+
 }

@@ -52,7 +52,7 @@ public class PageElementHandler implements InvocationHandler {
             command = (Command) ((Supplier) objects[0]).get();
             objects = (Object[]) objects[1];
         } else {
-            command = Commands.getInstance().get(method.getName());
+            command = Commands.getPropertiesInstance().get(method.getName());
         }
 
         Object result = command.execute(locator, objects);

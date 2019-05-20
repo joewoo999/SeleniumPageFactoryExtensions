@@ -53,17 +53,12 @@ public class PageFieldDecorator implements FieldDecorator {
             return null;
         }
 
-        ElementLocator locator = new DefaultElementLocator(driver, field) {
-            @Override
-            public String toString() {
-                return super.toString().replace(this.getClass().getSimpleName(), "").trim();
-            }
-        };
+        ElementLocator locator = new PageElementLocator(driver, field);
 
         if (PageElement.class.isAssignableFrom(fieldType)) {
             return proxyForLocator(fieldType, loader, locator);
         } else if (List.class.isAssignableFrom(fieldType)) {
-            return proxyForListLocator(loader, locator);
+            return proxyForListLocator(getActualType(field), loader, locator);
         } else {
             return null;
         }
@@ -73,40 +68,38 @@ public class PageFieldDecorator implements FieldDecorator {
         if (!List.class.isAssignableFrom(field.getType()))
             return false;
 
-        Type genericType = field.getGenericType();
-        if (!(genericType instanceof ParameterizedType))
+        Class<?> listType = getActualType(field);
+        if (null == listType || !PageElement.class.isAssignableFrom(listType))
             return false;
-
-        Type listType = ((ParameterizedType) genericType).getActualTypeArguments()[0];
-
-        if (!WebElement.class.equals(listType)) {
-//        if (!PageElement.class.isAssignableFrom((Class) listType))
-//            return false;
-            throw new IllegalArgumentException(String
-                    .format("Unsupported list parameterized type:[%s] of field:[%s]",
-                            listType.getTypeName(), field.getName()));
-        }
 
         return field.getAnnotation(FindBy.class) != null ||
                 field.getAnnotation(FindBys.class) != null ||
                 field.getAnnotation(FindAll.class) != null;
     }
 
+    protected Class<?> getActualType(Field field) {
+        Type genericType = field.getGenericType();
+        if (!(genericType instanceof ParameterizedType))
+            return null;
+
+        return (Class<?>)((ParameterizedType) genericType).getActualTypeArguments()[0];
+    }
+
     protected <T> T proxyForLocator(Class<T> clazz, ClassLoader loader, ElementLocator locator) {
         InvocationHandler handler = new PageElementHandler(locator);
 
         Object proxy = Proxy.newProxyInstance(
-                loader, new Class[]{clazz, WrapsElement.class, Locatable.class}, handler);
+                loader, new Class[]{clazz}, handler);
 
         return clazz.cast(proxy);
     }
 
     @SuppressWarnings("unchecked")
-    protected List<WebElement> proxyForListLocator(ClassLoader loader, ElementLocator locator) {
-        InvocationHandler handler = new LocatingElementListHandler(locator);
+    protected <T> List<T> proxyForListLocator(Class<T> clazz, ClassLoader loader, ElementLocator locator) {
+        InvocationHandler handler = new PageElementListHandler(clazz, loader, locator);
 
         Object proxy = Proxy.newProxyInstance(
                 loader, new Class[]{List.class}, handler);
-        return (List<WebElement>) proxy;
+        return (List<T>) proxy;
     }
 }

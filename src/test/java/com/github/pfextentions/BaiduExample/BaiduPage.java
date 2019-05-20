@@ -65,10 +65,10 @@ public class BaiduPage extends AbstractPage {
     PageElement wr;
 
     @FindAll({@FindBy(tagName = "span")})
-    List<WebElement> all;
+    List<PageElement> all;
 
-//    @FindAll({@FindBy(tagName = "span")})
-//    List<PageElement> exAll;
+    @FindAll({@FindBy(tagName = "span")})
+    List<ElementEx> exAll;
 
     @FindBys({@FindBy(css = "#form"), @FindBy(id = "kw")})
     PageElement bys;
