@@ -34,22 +34,22 @@ public class BaiduPageTest {
         p.searchBox.waitUntil(Be.visible, 10);
         p.assertPageOpened();
 
-//        p.setting.perform(Actions.MOVE_TO);
-//        sleep();
-//        p.seniorSearchLink.waitUntil(Be.visible, 10);
-//        p.seniorSearchLink.perform(Actions.CLICK);
-//        sleep();
-//        p.keyword1.should(Be.visible);
-//        p.keyword1.perform(Actions.type_text("fksuww"));
-//        p.searchYear.select(Options.byText("最近一天"));
-//        System.out.println(p.searchYear.select(Options.SELECTED_TEXT));
-//        p.searchYear.select(Options.byIndex(4));
-//        System.out.println(p.searchYear.select(Options.SELECTED_TEXT));
-//        sleep();
-//        p.keywordsPosition.select(Radios.byValue("2"));
-//        p.keywordsPosition.select(Radios.byLabelText("仅网页的标题中"));
-//        p.keywordsPosition.select(Radios.byIndex(0));
-//        sleep();
+        p.setting.perform(Actions.MOVE_TO);
+        sleep();
+        p.seniorSearchLink.waitUntil(Be.visible, 10);
+        p.seniorSearchLink.perform(Actions.CLICK);
+        sleep();
+        p.keyword1.should(Be.visible);
+        p.keyword1.perform(Actions.type_text("fksuww"));
+        p.searchYear.select(Options.byText("最近一天"));
+        System.out.println(p.searchYear.select(Options.SELECTED_TEXT));
+        p.searchYear.select(Options.byIndex(4));
+        System.out.println(p.searchYear.select(Options.SELECTED_TEXT));
+        sleep();
+        p.keywordsPosition.select(Radios.byValue("2"));
+        p.keywordsPosition.select(Radios.byLabelText("仅网页的标题中"));
+        p.keywordsPosition.select(Radios.byIndex(0));
+        sleep();
     }
 
     @AfterClass
@@ -65,9 +65,6 @@ public class BaiduPageTest {
         }
     }
 
-
-    public static void main(String[] args) {
-    }
 }
 
 
