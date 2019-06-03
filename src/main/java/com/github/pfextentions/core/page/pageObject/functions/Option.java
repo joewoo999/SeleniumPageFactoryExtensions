@@ -26,9 +26,9 @@ import com.github.pfextentions.core.page.pageObject.functions.options.SelectOpti
 import com.github.pfextentions.core.page.pageObject.functions.options.SelectOptionByValue;
 import org.openqa.selenium.WebElement;
 
-public class Options {
+public class Option {
 
-    public static OptionFunction<String> SELECTED_TEXT = new GetSelectedOptionText();
+    public static OptionFunction<String> GET_SELECTED_TEXT = new GetSelectedOptionText();
 
     public static OptionFunction<WebElement> byIndex(int index) {
         return new SelectOptionByIndex(index);

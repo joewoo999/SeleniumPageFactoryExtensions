@@ -19,16 +19,11 @@
 
 package com.github.pfextentions.core.page.pageFactory;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.pagefactory.AbstractAnnotations;
-import org.openqa.selenium.support.pagefactory.Annotations;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 public class PageElementLocator extends DefaultElementLocator {
     private int index = 0;

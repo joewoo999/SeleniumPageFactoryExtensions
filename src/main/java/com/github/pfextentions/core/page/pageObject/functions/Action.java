@@ -19,23 +19,22 @@
 
 package com.github.pfextentions.core.page.pageObject.functions;
 
-import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
-import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByIndex;
-import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByLabelText;
-import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByValue;
-import org.openqa.selenium.WebElement;
+import com.github.pfextentions.core.page.pageObject.function.ActionConsumer;
+import com.github.pfextentions.core.page.pageObject.functions.actions.DoubleLeftClick;
+import com.github.pfextentions.core.page.pageObject.functions.actions.TypeText;
 
-public class Radios {
+public class Action {
 
-    public static RadioGroupFunction<WebElement> byIndex(int index) {
-        return new SelectRadioByIndex(index);
+    public static ActionConsumer DOUBLE_CLICK = new DoubleLeftClick();
+
+    public static ActionConsumer CLICK = new DoubleLeftClick();
+
+    public static ActionConsumer MOVE_TO = new DoubleLeftClick();
+
+    public static ActionConsumer RIGHT_CLICK = new DoubleLeftClick();
+
+    public static ActionConsumer type_text(String text) {
+        return new TypeText(text);
     }
 
-    public static RadioGroupFunction<WebElement> byLabelText(String text) {
-        return new SelectRadioByLabelText(text);
-    }
-
-    public static RadioGroupFunction<WebElement> byValue(String value) {
-        return new SelectRadioByValue(value);
-    }
 }

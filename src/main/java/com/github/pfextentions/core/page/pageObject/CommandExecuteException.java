@@ -17,37 +17,19 @@
  * under the License.
  */
 
-package com.github.pfextentions.common;
+package com.github.pfextentions.core.page.pageObject;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+public class CommandExecuteException extends RuntimeException {
 
-import java.util.Properties;
-
-public class PropertyTest {
-    private static Property prop;
-
-    @BeforeClass
-    public static void setUp() {
-        prop = Property.fromFile("config");
+    public CommandExecuteException() {
+        super();
     }
 
-    @Test
-    public void toMap() {
-        Assert.assertFalse(prop.toMap().isEmpty());
+    public CommandExecuteException(String message) {
+        super(message);
     }
 
-    @Test
-    public void getProperties() {
-        Properties props = prop.getProperties();
-        Assert.assertFalse(props.isEmpty());
+    public CommandExecuteException(String message, Throwable cause) {
+        super(message, cause);
     }
-
-    @Test
-    public void commands() {
-        Property p = Property.fromFile("commands");
-        System.out.println(p.toMap());
-    }
-
 }

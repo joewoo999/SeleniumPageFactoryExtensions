@@ -19,7 +19,9 @@
 
 package com.github.pfextentions.core.page.pageObject.functions.radioGroup;
 
+import com.github.pfextentions.core.page.pageObject.CommandExecuteException;
 import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
@@ -34,7 +36,7 @@ public class SelectRadioByValue implements RadioGroupFunction<WebElement> {
     }
 
     @Override
-    public WebElement apply(ElementLocator locator) {
+    public WebElement apply(@NotNull ElementLocator locator) {
         this.locator = locator;
 
         List<WebElement> radios = locator.findElements();
@@ -47,7 +49,7 @@ public class SelectRadioByValue implements RadioGroupFunction<WebElement> {
 
             return radio;
         }
-        return null;
+        throw new CommandExecuteException(String.format("Can not find radio element by value:'%s'", value));
     }
 
     @Override

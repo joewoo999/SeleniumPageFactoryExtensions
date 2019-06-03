@@ -20,17 +20,13 @@
 package com.github.pfextentions.core.page.pageFactory;
 
 import com.github.pfextentions.core.page.pageObject.PageElement;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WrapsElement;
-import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.FieldDecorator;
-import org.openqa.selenium.support.pagefactory.internal.LocatingElementListHandler;
 
 import java.lang.reflect.*;
 import java.util.List;
@@ -45,9 +41,8 @@ public class PageFieldDecorator implements FieldDecorator {
 
 
     @Override
-    public Object decorate(ClassLoader loader, Field field) {
+    public Object decorate(ClassLoader loader, @NotNull Field field) {
         Class<?> fieldType = field.getType();
-
         if (!(PageElement.class.isAssignableFrom(fieldType)
                 || isDecoratableList(field))) {
             return null;
@@ -64,7 +59,7 @@ public class PageFieldDecorator implements FieldDecorator {
         }
     }
 
-    protected boolean isDecoratableList(Field field) {
+    protected boolean isDecoratableList(@NotNull Field field) {
         if (!List.class.isAssignableFrom(field.getType()))
             return false;
 
@@ -77,15 +72,16 @@ public class PageFieldDecorator implements FieldDecorator {
                 field.getAnnotation(FindAll.class) != null;
     }
 
-    protected Class<?> getActualType(Field field) {
+    protected Class<?> getActualType(@NotNull Field field) {
         Type genericType = field.getGenericType();
         if (!(genericType instanceof ParameterizedType))
             return null;
 
-        return (Class<?>)((ParameterizedType) genericType).getActualTypeArguments()[0];
+        return (Class<?>) ((ParameterizedType) genericType).getActualTypeArguments()[0];
     }
 
-    protected <T> T proxyForLocator(Class<T> clazz, ClassLoader loader, ElementLocator locator) {
+    protected <T> T proxyForLocator(@NotNull Class<T> clazz, ClassLoader loader,
+                                    ElementLocator locator) {
         InvocationHandler handler = new PageElementHandler(locator);
 
         Object proxy = Proxy.newProxyInstance(
@@ -95,7 +91,8 @@ public class PageFieldDecorator implements FieldDecorator {
     }
 
     @SuppressWarnings("unchecked")
-    protected <T> List<T> proxyForListLocator(Class<T> clazz, ClassLoader loader, ElementLocator locator) {
+    protected <T> List<T> proxyForListLocator(Class<T> clazz, ClassLoader loader,
+                                                                  ElementLocator locator) {
         InvocationHandler handler = new PageElementListHandler(clazz, loader, locator);
 
         Object proxy = Proxy.newProxyInstance(

@@ -19,51 +19,61 @@
 
 package com.github.pfextentions.core.page.pageFactory;
 
+import com.github.pfextentions.core.page.pageObject.PageElement;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WrapsElement;
-import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * dev...
- */
-public class PageElementListHandler implements InvocationHandler {
-    private final Class clazz;
+
+public class PageElementListHandler<T extends PageElement> implements InvocationHandler {
+    private final Class<T> clazz;
     private final ClassLoader loader;
     private final ElementLocator locator;
+    private List<T> cachedElements = new ArrayList<>();
 
 
-    public PageElementListHandler(Class clazz, ClassLoader loader, ElementLocator locator) {
+    public PageElementListHandler(Class<T> clazz, ClassLoader loader, ElementLocator locator) {
         this.locator = locator;
         this.clazz = clazz;
         this.loader = loader;
     }
 
     @Override
-    public Object invoke(Object object, Method method, Object[] objects) {
-        List<? extends WebElement> elements = locator.findElements();
+    public Object invoke(Object object, @NotNull Method method, Object[] objects) throws Throwable {
+        if ("tostring".equalsIgnoreCase(method.getName())) {
+            return "Proxy element for: " + locator;
+        }
+        if ("clear".equalsIgnoreCase(method.getName())) {
+            if (!cachedElements.isEmpty()) {
+                cachedElements.clear();
+            }
+            return cachedElements;
+        }
 
-        switch (method.getName().toLowerCase()) {
-            case "size":
-                return elements.size();
-            case "isempty":
-                return elements.isEmpty();
-            case "get":
-                ((PageElementLocator) locator).setIndex((int) objects[0]);
-                InvocationHandler handler = new PageElementHandler(locator);
+        List<WebElement> elements = locator.findElements();
+        int size = locator.findElements().size();
+        InvocationHandler handler = new PageElementHandler(locator);
 
-                Object proxy = Proxy.newProxyInstance(
-                        loader, new Class[]{clazz}, handler);
+        if (cachedElements.isEmpty()) {
+            for (int index = 0; index < size; index++) {
+                ((PageElementLocator) locator).setIndex(index);
 
-                return clazz.cast(proxy);
-            default:
-                throw new UnsupportedOperationException(method.getName());
+                cachedElements.add(index, clazz.cast(Proxy.newProxyInstance(
+                        loader, new Class[]{clazz}, handler)));
+            }
+        }
 
+        try {
+            return method.invoke(cachedElements, objects);
+        } catch (InvocationTargetException e) {
+            throw e.getCause();
         }
     }
 
