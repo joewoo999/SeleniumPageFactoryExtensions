@@ -19,6 +19,8 @@
 
 package com.github.pfextentions.core.page.pageObject.expectedCondtion;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
@@ -30,6 +32,8 @@ public class Have {
      * @param expected used as expected attribute value
      * @return Boolean true when element has html attribute with the value
      */
+    @NotNull
+    @Contract(value = "_, _ -> new", pure = true)
     public static Condtion<Boolean> attribute(final String attr, final String expected) {
         return new Condtion<>() {
             private ElementLocator locator;
@@ -60,6 +64,8 @@ public class Have {
      * @param expected used as expected attribute value
      * @return Boolean true when element has text value equal to @expected
      */
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static Condtion<Boolean> text(final String expected) {
         return new Condtion<>() {
             private ElementLocator locator;

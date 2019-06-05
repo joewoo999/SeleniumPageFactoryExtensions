@@ -19,6 +19,8 @@
 
 package com.github.pfextentions.core;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.util.Map;
@@ -31,7 +33,7 @@ public class Configuration implements BrowserConfig {
     protected int implicitlyWaitTime;
     protected String downloadDir;
 
-    public Configuration(Map<String, String> map) {
+    public Configuration(@NotNull Map<String, String> map) {
         this.map = map;
         this.type = map.getOrDefault(KEYS.TYPE, BrowserType.CHROME);
         this.headless = "true".equalsIgnoreCase(map.get(KEYS.HEADLESS));
@@ -42,10 +44,14 @@ public class Configuration implements BrowserConfig {
 
     }
 
+    @NotNull
+    @Contract(" -> new")
     public static Configuration of() {
         return new Configuration(Map.of());
     }
 
+    @NotNull
+    @Contract("_, _, _ -> new")
     public static Configuration of(String type, String headless, String downloadDir) {
 
         return new Configuration(Map.of(

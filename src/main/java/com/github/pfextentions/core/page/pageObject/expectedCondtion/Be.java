@@ -19,6 +19,8 @@
 
 package com.github.pfextentions.core.page.pageObject.expectedCondtion;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
@@ -31,6 +33,7 @@ public class Be {
     public static Condtion<Boolean> present = new Condtion<>() {
         private ElementLocator locator;
 
+        @NotNull
         @Override
         public Boolean apply(ElementLocator locator) {
             this.locator = locator;
@@ -53,6 +56,7 @@ public class Be {
     public static Condtion<Boolean> visible = new Condtion<>() {
         private ElementLocator locator;
 
+        @NotNull
         @Override
         public Boolean apply(ElementLocator locator) {
             this.locator = locator;
@@ -73,6 +77,7 @@ public class Be {
     public static Condtion<Boolean> enabled = new Condtion<>() {
         private ElementLocator locator;
 
+        @NotNull
         @Override
         public Boolean apply(ElementLocator locator) {
             this.locator = locator;
@@ -93,6 +98,7 @@ public class Be {
     public static Condtion<Boolean> selected = new Condtion<>() {
         private ElementLocator locator;
 
+        @NotNull
         @Override
         public Boolean apply(ElementLocator locator) {
             this.locator = locator;
@@ -108,6 +114,7 @@ public class Be {
     };
 
 
+    @Nullable
     private static WebElement findElement(ElementLocator locator) {
         try {
             return locator.findElement();

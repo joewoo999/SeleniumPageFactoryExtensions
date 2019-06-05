@@ -19,6 +19,8 @@
 
 package com.github.pfextentions.core.page.pageObject;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Sleeper;
@@ -37,6 +39,8 @@ public class PageElementWait extends FluentWait<ElementLocator> {
         super(locator, clock, sleeper);
     }
 
+    @NotNull
+    @Contract("_ -> new")
     public static PageElementWait getInstance(ElementLocator locator) {
         return new PageElementWait(locator);
     }

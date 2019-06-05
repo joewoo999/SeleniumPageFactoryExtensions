@@ -23,18 +23,26 @@ import com.github.pfextentions.core.page.pageObject.function.RadioGroupFunction;
 import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByIndex;
 import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByLabelText;
 import com.github.pfextentions.core.page.pageObject.functions.radioGroup.SelectRadioByValue;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 
 public class Radio {
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static RadioGroupFunction<WebElement> byIndex(int index) {
         return new SelectRadioByIndex(index);
     }
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static RadioGroupFunction<WebElement> byLabelText(String text) {
         return new SelectRadioByLabelText(text);
     }
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static RadioGroupFunction<WebElement> byValue(String value) {
         return new SelectRadioByValue(value);
     }

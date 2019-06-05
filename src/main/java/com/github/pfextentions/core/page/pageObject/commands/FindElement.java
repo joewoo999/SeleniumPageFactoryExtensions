@@ -19,24 +19,33 @@
 
 package com.github.pfextentions.core.page.pageObject.commands;
 
+import com.github.pfextentions.core.page.pageFactory.PageElementHandler;
+import com.github.pfextentions.core.page.pageFactory.PageElementLocator;
+import com.github.pfextentions.core.page.pageObject.PageElement;
 import com.github.pfextentions.core.page.pageObject.function.CommandFunction;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
-public class FindElement implements CommandFunction<WebElement> {
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
+
+public class FindElement implements CommandFunction<PageElement> {
     private ElementLocator locator;
     private By by;
 
     @Override
-    public WebElement apply(ElementLocator locator, Object[] objects) {
-        this.locator = locator;
-
-        if (!(objects[0] instanceof By))
+    public PageElement apply(ElementLocator locator, Object[] objects) {
+        if(!(objects[0] instanceof By))
             return null;
+
+        this.locator = locator;
         this.by = (By) objects[0];
 
-        return locator.findElement().findElement(by);
+        ElementLocator childLocator = new PageElementLocator(locator.findElement(), false, by);
+        InvocationHandler invocationHandler = new PageElementHandler(childLocator);
+
+        return (PageElement) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+                new Class[]{PageElement.class}, invocationHandler);
     }
 
     @Override

@@ -19,6 +19,7 @@
 
 package com.github.pfextentions.core.page.pageObject;
 
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
@@ -46,7 +47,7 @@ public enum PageElementType {
         this.type = type;
     }
 
-    public WebElement findAndAssertElementType(ElementLocator locator) {
+    public WebElement findAndAssertElementType(@NotNull ElementLocator locator) {
         StringBuffer b = new StringBuffer();
         WebElement element = locator.findElement();
         String tag = element.getTagName();

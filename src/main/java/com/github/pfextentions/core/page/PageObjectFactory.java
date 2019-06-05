@@ -20,6 +20,7 @@
 package com.github.pfextentions.core.page;
 
 import com.github.pfextentions.core.page.pageFactory.PageFieldDecorator;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.FieldDecorator;
 
@@ -29,7 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 public class PageObjectFactory {
 
 
-    public static <T> T initElements(WebDriver driver, Class<T> pageClassToProxy) {
+    public static <T> T initElements(WebDriver driver, @NotNull Class<T> pageClassToProxy) {
         try {
             T page = pageClassToProxy.getDeclaredConstructor().newInstance();
             initElements(driver, page);
@@ -44,7 +45,7 @@ public class PageObjectFactory {
         initElements(new PageFieldDecorator(driver), page);
     }
 
-    public static void initElements(FieldDecorator decorator, Object page) {
+    public static void initElements(FieldDecorator decorator, @NotNull Object page) {
         Class<?> proxyIn = page.getClass();
         while (proxyIn != Object.class) {
             proxyFields(decorator, page, proxyIn);
@@ -52,7 +53,7 @@ public class PageObjectFactory {
         }
     }
 
-    private static void proxyFields(FieldDecorator decorator, Object page, Class<?> proxyIn) {
+    private static void proxyFields(FieldDecorator decorator, Object page, @NotNull Class<?> proxyIn) {
         Field[] fields = proxyIn.getDeclaredFields();
         for (Field field : fields) {
             Object value = decorator.decorate(page.getClass().getClassLoader(), field);

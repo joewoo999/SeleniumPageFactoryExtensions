@@ -47,7 +47,7 @@ public class BaiduPageTest {
         p.searchYear.select(Option.byIndex(4));
         System.out.println(p.searchYear.select(Option.GET_SELECTED_TEXT));
         sleep();
-        p.keywordsPosition.select(Radio.byValue("6"));
+        p.keywordsPosition.select(Radio.byValue("2"));
         p.keywordsPosition.select(Radio.byLabelText("仅网页的标题中"));
         p.keywordsPosition.select(Radio.byIndex(0));
         sleep();

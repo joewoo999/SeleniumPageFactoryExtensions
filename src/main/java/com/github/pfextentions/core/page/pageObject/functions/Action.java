@@ -22,6 +22,8 @@ package com.github.pfextentions.core.page.pageObject.functions;
 import com.github.pfextentions.core.page.pageObject.function.ActionConsumer;
 import com.github.pfextentions.core.page.pageObject.functions.actions.DoubleLeftClick;
 import com.github.pfextentions.core.page.pageObject.functions.actions.TypeText;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class Action {
 
@@ -33,6 +35,8 @@ public class Action {
 
     public static ActionConsumer RIGHT_CLICK = new DoubleLeftClick();
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static ActionConsumer type_text(String text) {
         return new TypeText(text);
     }

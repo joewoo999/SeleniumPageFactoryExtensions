@@ -21,13 +21,14 @@ package com.github.pfextentions.core.page.pageObject.functions.actions;
 
 import com.github.pfextentions.core.driverContext.DriverContext;
 import com.github.pfextentions.core.page.pageObject.function.ActionConsumer;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 public class DoubleLeftClick implements ActionConsumer {
     private ElementLocator locator;
 
     @Override
-    public void accept(ElementLocator locator) {
+    public void accept(@NotNull ElementLocator locator) {
         this.locator = locator;
 
         DriverContext.getActions().doubleClick(locator.findElement()).perform();

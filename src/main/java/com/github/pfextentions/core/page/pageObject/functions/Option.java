@@ -24,20 +24,28 @@ import com.github.pfextentions.core.page.pageObject.functions.options.GetSelecte
 import com.github.pfextentions.core.page.pageObject.functions.options.SelectOptionByIndex;
 import com.github.pfextentions.core.page.pageObject.functions.options.SelectOptionByText;
 import com.github.pfextentions.core.page.pageObject.functions.options.SelectOptionByValue;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebElement;
 
 public class Option {
 
     public static OptionFunction<String> GET_SELECTED_TEXT = new GetSelectedOptionText();
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static OptionFunction<WebElement> byIndex(int index) {
         return new SelectOptionByIndex(index);
     }
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static OptionFunction<WebElement> byText(String text) {
         return new SelectOptionByText(text);
     }
 
+    @NotNull
+    @Contract(value = "_ -> new", pure = true)
     public static OptionFunction<WebElement> byValue(String value) {
         return new SelectOptionByValue(value);
     }

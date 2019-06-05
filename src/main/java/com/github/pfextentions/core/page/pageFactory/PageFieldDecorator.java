@@ -80,8 +80,9 @@ public class PageFieldDecorator implements FieldDecorator {
         return (Class<?>) ((ParameterizedType) genericType).getActualTypeArguments()[0];
     }
 
-    protected <T> T proxyForLocator(@NotNull Class<T> clazz, ClassLoader loader,
+    protected <T> T proxyForLocator(Class<T> clazz, ClassLoader loader,
                                     ElementLocator locator) {
+
         InvocationHandler handler = new PageElementHandler(locator);
 
         Object proxy = Proxy.newProxyInstance(
@@ -92,7 +93,7 @@ public class PageFieldDecorator implements FieldDecorator {
 
     @SuppressWarnings("unchecked")
     protected <T> List<T> proxyForListLocator(Class<T> clazz, ClassLoader loader,
-                                                                  ElementLocator locator) {
+                                              ElementLocator locator) {
         InvocationHandler handler = new PageElementListHandler(clazz, loader, locator);
 
         Object proxy = Proxy.newProxyInstance(
