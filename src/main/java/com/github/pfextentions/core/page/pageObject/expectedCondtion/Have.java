@@ -28,9 +28,9 @@ public class Have {
     /**
      * An expectation for checking WebElement has attribute with a specific value
      *
-     * @param attr     used to define html attribute
+     * @param attr     used to define test-html attribute
      * @param expected used as expected attribute value
-     * @return Boolean true when element has html attribute with the value
+     * @return Boolean true when element has test-html attribute with the value
      */
     @NotNull
     @Contract(value = "_, _ -> new", pure = true)
