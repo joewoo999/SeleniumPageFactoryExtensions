@@ -5,125 +5,125 @@
     <title> index </title>
     <script src="./js/jquery-1.10.1.js"></script>
     <script src="./js/common.js"></script>
-    <link href="common.css" rel="stylesheet" type="text/css" />
+    <link href="common.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
-    <div>
-        <form id="submit-form">
-            <table>
-                <thead>
-                    <tr style="background-color:lightblue">
-                        <th colspan=3>form-title</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Texts -->
-                    <tr>
-                        <td>
+<div>
+    <form id="submit-form">
+        <table>
+            <thead>
+            <tr style="background-color:lightblue">
+                <th colspan=3>form-title</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Texts -->
+            <tr>
+                <td>
                             <span id="text-span">
                                 text-input:
                             </span>
-                        </td>
-                        <td colspan=2>
-                            <input id="text-input" class="text-input" value="text" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                </td>
+                <td colspan=2>
+                    <input id="text-input" class="text-input" value="text"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
                             <span id="textarea-span">
                                 textarea-input:
                             </span>
-                        </td>
-                        <td colspan=2>
-                            <textarea id="textarea-input" class="text-input">text area</textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                </td>
+                <td colspan=2>
+                    <textarea id="textarea-input" class="text-input">text area</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
                             <span id="file-span">
                                 file-upload:
                             </span>
-                        </td>
-                        <td colspan=2>
-                            <input id="file-upload" type="file" class="file-upload" />
-                        </td>
-                    </tr>
-                    <!-- Select/Options -->
-                    <tr>
-                        <td>
-                            <select id="select" name="select">
-                                <option value="1" selected="selected"> Option 1</option>
-                                <option value="2"> Option 2</option>
-                                <option value="3"> Option 3</option>
-                                <option value="4" disabled="disabled"> Option 4</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select id="multiple-select" name="multiple-select" multiple="multiple">
-                                <option value="1" selected="selected"> Option 1</option>
-                                <option value="2"> Option 2</option>
-                                <option value="3"> Option 3</option>
-                                <option value="4" disabled="disabled"> Option 4</option>
-                            </select>
-                        </td>
-                        <td>
-                            <p>hidden</p>
-                            <select id="hidden-select" hidden="hidden"></select>
-                            <input id="hidden-input" type="text" style="display:none" />
-                        </td>
-                    </tr>
-                    <!-- Checkboxes -->
-                    <tr>
-                        <td><input id="checkbox1" name="checkbox1" type="checkbox" checked="checked" />
-                            <span>checkbox1</span></td>
-                        <td><input id="checkbox2" name="checkbox2" type="checkbox" />
-                            <span>checkbox2</span></td>
-                        <td><input id="checkbox3" name="checkbox3" type="checkbox" />
-                            <span>checkbox3</span></td>
-                    </tr>
-                    <!-- Radiobuttons -->
-                    <tr>
-                        <td><input id="radio1" name="radiobutton" type="radio" checked="checked" />
-                            <label>radio1</label></td>
-                        <td><input id="radio2" name="radiobutton" type="radio" />
-                            <label>radio2</label></td>
-                        <td><input id="radio3" name="radiobutton" type="radio" />
-                            <label>radio3</label></td>
-                    </tr>
-                    <tr>
-                        <td colspan=3>
-                            <input class="button" id="submit" name="submit" type="submit" form="submit-form"
-                                value="submit" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+                </td>
+                <td colspan=2>
+                    <input id="file-upload" type="file" class="file-upload"/>
+                </td>
+            </tr>
+            <!-- Select/Options -->
+            <tr>
+                <td>
+                    <select id="select" name="select">
+                        <option value="1" selected="selected"> Option 1</option>
+                        <option value="2"> Option 2</option>
+                        <option value="3"> Option 3</option>
+                        <option value="4" disabled="disabled"> Option 4</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="multiple-select" name="multiple-select" multiple="multiple">
+                        <option value="1" selected="selected"> Option 1</option>
+                        <option value="2"> Option 2</option>
+                        <option value="3"> Option 3</option>
+                        <option value="4" disabled="disabled"> Option 4</option>
+                    </select>
+                </td>
+                <td>
+                    <p>hidden</p>
+                    <select id="hidden-select" hidden="hidden"></select>
+                    <input id="hidden-input" type="text" style="display:none"/>
+                </td>
+            </tr>
+            <!-- Checkboxes -->
+            <tr>
+                <td><input id="checkbox1" name="checkbox1" type="checkbox" checked="checked"/>
+                    <span>checkbox1</span></td>
+                <td><input id="checkbox2" name="checkbox2" type="checkbox"/>
+                    <span>checkbox2</span></td>
+                <td><input id="checkbox3" name="checkbox3" type="checkbox"/>
+                    <span>checkbox3</span></td>
+            </tr>
+            <!-- Radiobuttons -->
+            <tr>
+                <td><input id="radio1" name="radiobutton" type="radio" checked="checked"/>
+                    <label>radio1</label></td>
+                <td><input id="radio2" name="radiobutton" type="radio"/>
+                    <label>radio2</label></td>
+                <td><input id="radio3" name="radiobutton" type="radio"/>
+                    <label>radio3</label></td>
+            </tr>
+            <tr>
+                <td colspan=3>
+                    <input class="button" id="submit" name="submit" type="submit" form="submit-form"
+                           value="submit"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
 
-    </div>
-    <div style="height: 10px;"></div>
-    <!-- Buttons -->
-    <div id="buttons">
-        <button class="button" id="alert" name="alert" type="button">alert</button>
-        <input class="button" id="confirm" name="confirm" type="button" value="confirm" />
-        <button class="button" id="prompt" name="prompt" type="button">prompt</button>
-        <input id="result" name="result" type="text" />
-    </div>
-    <div style="height: 10px;"></div>
-    <!-- Links -->
-    <div>
-        <a id="new-window" name="new-window" href="./new_window.html" target="_blank">new window</a>
-        <a id="next-page" name="next-page" href="./next_page.html">next page</a>
-        <a id="new-iframe" name="new-iframe" href="javascript:;">new frame</a>
-    </div>
+</div>
+<div style="height: 10px;"></div>
+<!-- Buttons -->
+<div id="buttons">
+    <button class="button" id="alert" name="alert" type="button">alert</button>
+    <input class="button" id="confirm" name="confirm" type="button" value="confirm"/>
+    <button class="button" id="prompt" name="prompt" type="button">prompt</button>
+    <input id="result" name="result" type="text"/>
+</div>
+<div style="height: 10px;"></div>
+<!-- Links -->
+<div>
+    <a id="new-window" name="new-window" href="./new_window.html" target="_blank">new window</a>
+    <a id="next-page" name="next-page" href="./next_page.html">next page</a>
+    <a id="new-iframe" name="new-iframe" href="javascript:;">new frame</a>
+</div>
 
-    <!-- Append to this -->
-    <div id="append"></div>
+<!-- Append to this -->
+<div id="append"></div>
 
-    <!-- Scroll to -->
-    <div style="height: 2000px;"></div>
-    <div id="scroll-to">scroll success</div>
+<!-- Scroll to -->
+<div style="height: 2000px;"></div>
+<div id="scroll-to">scroll success</div>
 </body>
 
 </html>
