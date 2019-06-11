@@ -42,10 +42,10 @@ public abstract class AbstractDriver implements Driver {
     }
 
     @Override
-    public void setProperty(String propertyName) {
-        String propertyFile = Resources.getPath(config.driverProperty(propertyName));
-        if (!Strings.isNullOrEmpty(propertyFile)) {
-            System.setProperty(propertyName, propertyFile);
+    public void setProperty(String serverName) {
+        String serverFile = Resources.getPath(config.driverServer(serverName));
+        if (!Strings.isNullOrEmpty(serverFile)) {
+            System.setProperty(serverName, serverFile);
         }
     }
 

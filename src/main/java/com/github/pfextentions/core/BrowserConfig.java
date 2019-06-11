@@ -39,9 +39,9 @@ public interface BrowserConfig {
 
     String downloadDir();
 
-    String driverProperty(String propertyName);
+    String driverServer(String propertyName);
 
-    Map<String, String> getMap();
+//    Map<String, String> getMap();
 
     default boolean isChrome() {
         return KEYS.CHROME_TYPES.contains(type());

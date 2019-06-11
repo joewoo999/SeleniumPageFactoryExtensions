@@ -1,18 +1,35 @@
 package com.github.pfextentions.common.config;
 
+import java.util.List;
+
 public class ConfigTest {
-    @ConfigKey("browserType")
-    public String browserType;
+    @ConfigKey("string")
+    public String _string;
 
-    @ConfigKey("headless")
-    public boolean isHeadless;
+    @ConfigKey("boolean")
+    public boolean _boolean;
 
-    @ConfigKey("IEDriver")
-    public String IEDriver;
+    @ConfigKey("int")
+    public int _int;
 
-    @ConfigKey("ChromeDriver")
-    public String chromeDriver;
+    @ConfigKey("float")
+    public float _float;
 
-    @ConfigKey("GeckoDriver")
-    public String firefoxDriver;
+    @ConfigKey("double")
+    public double _double;
+
+    @ConfigKey("long")
+    public long _long;
+
+    @ConfigKey("empty")
+    public String empty;
+
+    @ConfigKey("nullValue")
+    public String nullValue;
+
+    public String ignore;
+
 }
+
+
+

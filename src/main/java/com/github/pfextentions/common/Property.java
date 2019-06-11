@@ -46,13 +46,12 @@ public class Property {
 
     private Property load(String fileName) {
         fileName = fileName.endsWith(".properties") ? fileName : fileName.concat(".properties");
-        InputStream is;
-        try {
-            is = new FileInputStream(fileName);
-        } catch (FileNotFoundException e) {
-            log.debug("Can not find file: {} at given path.", fileName);
-            is = ClassLoader.getSystemResourceAsStream(fileName);
-            if (null == is) {
+        InputStream is = ClassLoader.getSystemResourceAsStream(fileName);
+        if (null == is) {
+            log.debug("Can not find file: {} at class path.", fileName);
+            try {
+                is = new FileInputStream(fileName);
+            } catch (FileNotFoundException e) {
                 throw new RuntimeException("Can not find file: " + fileName);
             }
         }

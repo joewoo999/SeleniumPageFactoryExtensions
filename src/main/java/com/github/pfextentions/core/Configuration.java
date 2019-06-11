@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Configuration implements BrowserConfig {
@@ -32,6 +33,11 @@ public class Configuration implements BrowserConfig {
     protected int pageLoadTime;
     protected int implicitlyWaitTime;
     protected String downloadDir;
+    protected String server;
+    protected String binary;
+
+    private String chromeServer, geckoServer, ieServer;
+    private String chromeBinary, firefoxBinary;
 
     public Configuration(@NotNull Map<String, String> map) {
         this.map = map;
@@ -42,6 +48,12 @@ public class Configuration implements BrowserConfig {
         this.pageLoadTime = Integer.parseInt(map.getOrDefault(KEYS.PAGE_LOAD_TIME, "60"));
         this.implicitlyWaitTime = Integer.parseInt(map.getOrDefault(KEYS.IMPLICITLY_WAIT_TIME, "0"));
 
+        this.chromeServer = map.get(KEYS.CHROME_PROPERTY);
+        this.geckoServer = map.get(KEYS.FIREFOX_PROPERTY);
+        this.ieServer = map.get(KEYS.IE_PROPERTY);
+
+        this.chromeBinary = map.get(KEYS.CHROME_BINARY);
+        this.firefoxBinary = map.get(KEYS.FIREFOX_BINARY);
     }
 
     @NotNull
@@ -73,7 +85,15 @@ public class Configuration implements BrowserConfig {
 
     @Override
     public String binary(String binaryName) {
-        return map.get(binaryName);
+        if (isIE()) {
+            return null;
+        } else if (isChrome()) {
+            return chromeBinary;
+        } else if (isFirefox()) {
+            return firefoxBinary;
+        } else {
+            throw new RuntimeException("Unsupported browser type: " + type);
+        }
     }
 
     @Override
@@ -91,12 +111,21 @@ public class Configuration implements BrowserConfig {
         return downloadDir;
     }
 
-    public String driverProperty(String propertyName) {
-        return map.get(propertyName);
+    @Override
+    public String driverServer(String serverName) {
+        if (isIE()) {
+            return ieServer;
+        } else if (isChrome()) {
+            return chromeServer;
+        } else if (isFirefox()) {
+            return geckoServer;
+        } else {
+            throw new RuntimeException("Unsupported browser type: " + type);
+        }
     }
 
-    @Override
-    public Map<String, String> getMap() {
-        return map;
-    }
+//    @Override
+//    public Map<String, String> getMap() {
+//        return map;
+//    }
 }

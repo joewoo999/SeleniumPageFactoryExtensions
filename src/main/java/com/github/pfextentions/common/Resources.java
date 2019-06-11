@@ -20,16 +20,29 @@
 package com.github.pfextentions.common;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
 
 public class Resources {
 
     public static String getPath(String fileName) {
-        if (null == fileName || fileName.trim().isEmpty() || new File(fileName).isFile())
+        if (null == fileName || fileName.isBlank())
             return fileName;
-        URL u = ClassLoader.getSystemResource(fileName);
+        URL u = getURL(fileName);
+        return u.getPath();
+    }
 
-        return null != u ? u.getPath() : null;
+    public static URL getURL(String fileName) {
+        Objects.requireNonNull(fileName);
+        try {
+            File file = new File(fileName);
+            if (file.isFile() || file.isDirectory()) {
+                return file.toURI().toURL();
+            }
+        } catch (MalformedURLException ignore) {
+//            ignore.printStackTrace();
+        }
+        return ClassLoader.getSystemResource(fileName);
     }
 }

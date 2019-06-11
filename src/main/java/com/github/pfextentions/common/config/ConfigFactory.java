@@ -19,13 +19,12 @@
 
 package com.github.pfextentions.common.config;
 
+import com.github.pfextentions.common.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public abstract class ConfigFactory {
@@ -50,28 +49,28 @@ public abstract class ConfigFactory {
     private static void proxyFields(Properties prop, Object config) {
         Field[] fields = config.getClass().getDeclaredFields();
         for (Field field : fields) {
-            if (null == field.getAnnotation(ConfigKey.class))
+            if (null == field.getAnnotation(ConfigKey.class)) {
                 continue;
-
+            }
             String key = field.getAnnotation(ConfigKey.class).value();
-            String value = (String) prop.get(key);
-            if (null == value || 0 == value.trim().length())
+            String value = (String)prop.get(key);
+            if (null == value) {
                 continue;
-
+            }
             try {
                 field.setAccessible(true);
 
                 Class<?> type = field.getType();
                 if (int.class.equals(type)) {
-                    field.set(config, Integer.valueOf(value));
+                    field.set(config, Integer.parseInt(value));
                 } else if (double.class.equals(type)) {
-                    field.set(config, Double.valueOf(value));
+                    field.set(config, Double.parseDouble(value));
                 } else if (float.class.equals(type)) {
-                    field.set(config, Float.valueOf(value));
+                    field.set(config, Float.parseFloat(value));
                 } else if (long.class.equals(type)) {
-                    field.set(config, Long.valueOf(value));
+                    field.set(config, Long.parseLong(value));
                 } else if (boolean.class.equals(type)) {
-                    field.set(config, Boolean.valueOf(value));
+                    field.set(config, Boolean.parseBoolean(value));
                 } else {
                     field.set(config, value);
                 }
@@ -82,26 +81,6 @@ public abstract class ConfigFactory {
     }
 
     private static Properties load(String fileName) {
-        Properties prop = new Properties();
-        InputStream is;
-        try {
-            is = new FileInputStream(fileName);
-        } catch (FileNotFoundException e) {
-            log.debug("Can not find file: {} at given path.", fileName);
-            is = ClassLoader.getSystemResourceAsStream(fileName);
-            if (null == is) {
-                throw new RuntimeException("Can not find file: " + fileName);
-            }
-        }
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            prop.load(br);
-            br.close();
-            is.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        log.debug("Properties file: {} loaded.", fileName);
-        return prop;
+        return Property.fromFile(fileName).getProperties();
     }
 }

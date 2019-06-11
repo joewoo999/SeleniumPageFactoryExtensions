@@ -17,28 +17,14 @@
  * under the License.
  */
 
-package com.github.pfextentions.common;
+package com.github.pfextentions;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import com.github.pfextentions.common.Resources;
 
-import java.util.Properties;
+public class BaseTest {
 
-public class PropertyTest {
-    private Property prop;
+    public static String TEST_URL = Resources.getURL("test-html/index.html").toString();
 
-    @Test
-    public void toMap() {
-        prop = Property.fromFile("config");
-        Assert.assertFalse(prop.toMap().isEmpty());
-    }
+    public static String TEST_TITLE = "index";
 
-    @Test
-    public void getProperties() {
-        String absolutePath = Resources.getPath("config.properties");
-        prop = Property.fromFile(absolutePath);
-        Properties props = prop.getProperties();
-        Assert.assertFalse(props.isEmpty());
-    }
 }

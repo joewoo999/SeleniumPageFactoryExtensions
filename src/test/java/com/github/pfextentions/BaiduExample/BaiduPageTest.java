@@ -6,21 +6,16 @@ import com.github.pfextentions.core.page.pageObject.expectedCondtion.Be;
 import com.github.pfextentions.core.page.pageObject.functions.Action;
 import com.github.pfextentions.core.page.pageObject.functions.Option;
 import com.github.pfextentions.core.page.pageObject.functions.Radio;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 
 public class BaiduPageTest {
 
 
-    @BeforeClass
     public static void before() {
         DriverFactory.setUp();
         Commands.getPropertiesInstance().add("extext", ExText.class);
     }
 
-    @Test
     public void test() {
         var p = new BaiduPage();
         p.open();
@@ -53,7 +48,6 @@ public class BaiduPageTest {
         sleep();
     }
 
-    @AfterClass
     public static void after() {
         DriverFactory.tearDown();
     }

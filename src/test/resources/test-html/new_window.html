@@ -1,26 +1,48 @@
 <html>
+
 <head>
     <title> new window </title>
-    <script src="jquery-1.10.1.js"></script>
-    <script src="common.js"></script>
-    <link href="common.css" rel="stylesheet" type="text/css"/>
+    <script>
+        function over(){
+            document.getElementById("over").setAttribute("class","hover");
+        }
+        function out(){
+            document.getElementById("over").removeAttribute("class");
+        }
+    </script>
+    <style>
+        #over {
+            background-color: lightgray;
+            padding: 10px;
+            width: 135px;
+            text-align: center;
+        }
+
+        #over.hover {
+            background-color: lightblue;
+            cursor: pointer;
+            padding: 10px;
+            width: 135px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
-<!-- Texts -->
-<div>
-    <h1>This is the new window test.</h1>
-    <!-- mouse over -->
+    <!-- Texts -->
     <div>
-        <div class="over" style="background-color:lightgray;padding:20px;width:30%">
-            <h2 style="background-color:white;">Mouseover event:<span></span></h2>
+        <h1>This is the new window test.</h1>
+        <!-- mouse over -->
+        <div>
+            <div id="over" onmouseover="over();" onmouseout="out();">
+                <h2>Mouseover event</h2>
+            </div>
         </div>
-        <div style="height:2px"></div>
-        <div class="enter" style="background-color:lightgray;padding:20px;width:30%">
-            <h2 style="background-color:white;">Mouseenter event:<span></span></h2>
-        </div>
+        <!-- Append to this -->
+        <div id="append"></div>
     </div>
-    <!-- Append to this -->
-    <div id="append"></div>
-</div>
+    <div style="height: 100px;"></div>
+    <div id="scroll-to">scroll success</div>
 </body>
+
 </html>
