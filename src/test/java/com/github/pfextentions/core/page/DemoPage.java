@@ -101,8 +101,8 @@ public class DemoPage extends AbstractPage {
     @FindBy(id = "radio")
     PageElement radio;
 
-    @FindBy(id = "image")
-    PageElement image;
+    @FindBy(id = "ie")
+    PageElement ieImage;
 
     @FindBy(name = "hidden")
     PageElement hidden;

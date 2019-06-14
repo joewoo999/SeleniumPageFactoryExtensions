@@ -19,11 +19,11 @@
             $('#dblclick').dblclick(function () {
                 $('#dblclick').after('<label class="dblclick"> dblclick </label>');
             });
-            $('#text').mouseover(function () {
-                $('#text').val('mouse over');
+            $('#ie').mouseover(function () {
+                $('#ie').attr('src', 'browser_safari.png');
             });
-            $('#text').mouseout(function () {
-                $('#text').val('mouse out');
+            $('#ie').mouseout(function () {
+                $('#ie').attr('src', 'browser_ie.png');
             });
         });
 
@@ -71,7 +71,9 @@
         <label>radio3</label>
         <!-- input image -->
         <h3>input image:</h3>
-        <input type="image" src="browser.png" alt="browser" id="image" />
+        <input type="image" src="browser_ie.png" alt="browser" id="ie" />
+        <input type="image" src="browser_chrome.png" alt="browser" id="chrome" />
+        <input type="image" src="browser_firefox.png" alt="browser" id="firefox" />
         <h3>hidden:</h3>
         <input type="hidden" name="hidden" value="hidden" />
         <input type="text" id="display" style="display: none;" />

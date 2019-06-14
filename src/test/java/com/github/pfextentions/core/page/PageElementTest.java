@@ -19,6 +19,7 @@
 
 package com.github.pfextentions.core.page;
 
+import com.github.pfextentions.common.Resources;
 import com.github.pfextentions.core.driverContext.DriverFactory;
 import com.github.pfextentions.core.page.pageObject.functions.Action;
 import org.apache.commons.io.FileUtils;
@@ -194,9 +195,9 @@ public class PageElementTest {
 
     @Test
     public void testScrollToCenter() {
-        page.image.scrollToCenter();
+        page.ieImage.scrollToCenter();
         //chrome
-        Assert.assertEquals("(8, 620)", page.image.getLocation().toString());
+        Assert.assertEquals("(8, 620)", page.ieImage.getLocation().toString());
 
     }
 
