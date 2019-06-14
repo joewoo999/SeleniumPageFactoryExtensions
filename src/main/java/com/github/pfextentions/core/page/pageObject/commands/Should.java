@@ -29,10 +29,6 @@ public class Should implements CommandFunction<Object> {
 
     @Override
     public Object apply(ElementLocator locator, Object[] objects) {
-
-        if (!(objects[0] instanceof Condtion)) {
-            return null;
-        }
         should = (Condtion) objects[0];
         result = should.apply(locator);
 

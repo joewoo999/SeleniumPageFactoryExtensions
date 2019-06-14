@@ -21,7 +21,12 @@ package com.github.pfextentions.core.page.pageObject.commands;
 
 import com.github.pfextentions.core.page.pageObject.functions.actions.DoubleLeftClick;
 import com.github.pfextentions.core.page.pageObject.function.CommandConsumer;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
-public abstract class DoubleClick extends DoubleLeftClick implements CommandConsumer {
+public class DoubleClick extends DoubleLeftClick implements CommandConsumer {
 
+    @Override
+    public void accept(ElementLocator locator, Object[] objects) {
+        super.accept(locator);
+    }
 }

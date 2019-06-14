@@ -37,6 +37,6 @@ public class ClickByJS implements CommandConsumer {
 
     @Override
     public String toString() {
-        return String.format("Click element:[%s] by javascript.", locator);
+        return String.format("Click element: %s by javascript.", locator);
     }
 }

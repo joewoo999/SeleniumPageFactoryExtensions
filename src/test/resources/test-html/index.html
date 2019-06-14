@@ -2,128 +2,98 @@
 <html>
 
 <head>
-    <title> index </title>
-    <script src="./js/jquery-1.10.1.js"></script>
-    <script src="./js/common.js"></script>
-    <link href="common.css" rel="stylesheet" type="text/css"/>
+    <title>test page</title>
+    <script src="jquery-1.10.1.js"></script>
+    <script>
+        $(function () {
+            $('#click').click(function () {
+                $('#dblclick').after('<label class="click"> click </label>');
+            });
+            $('#jsclick').click(function () {
+                $('#dblclick').after('<label class="jsclick"> jsclick </label>');
+            });
+            $('#rightclick').contextmenu(function () {
+                $('#dblclick').after('<label class="rightclick"> rightclick </label>');
+                return false;
+            });
+            $('#dblclick').dblclick(function () {
+                $('#dblclick').after('<label class="dblclick"> dblclick </label>');
+            });
+            $('#text').mouseover(function () {
+                $('#text').val('mouse over');
+            });
+            $('#text').mouseout(function () {
+                $('#text').val('mouse out');
+            });
+        });
+
+    </script>
 </head>
 
 <body>
-<div>
-    <form id="submit-form">
-        <table>
-            <thead>
-            <tr style="background-color:lightblue">
-                <th colspan=3>form-title</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Texts -->
-            <tr>
-                <td>
-                            <span id="text-span">
-                                text-input:
-                            </span>
-                </td>
-                <td colspan=2>
-                    <input id="text-input" class="text-input" value="text"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                            <span id="textarea-span">
-                                textarea-input:
-                            </span>
-                </td>
-                <td colspan=2>
-                    <textarea id="textarea-input" class="text-input">text area</textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                            <span id="file-span">
-                                file-upload:
-                            </span>
-                </td>
-                <td colspan=2>
-                    <input id="file-upload" type="file" class="file-upload"/>
-                </td>
-            </tr>
-            <!-- Select/Options -->
-            <tr>
-                <td>
-                    <select id="select" name="select">
-                        <option value="1" selected="selected"> Option 1</option>
-                        <option value="2"> Option 2</option>
-                        <option value="3"> Option 3</option>
-                        <option value="4" disabled="disabled"> Option 4</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="multiple-select" name="multiple-select" multiple="multiple">
-                        <option value="1" selected="selected"> Option 1</option>
-                        <option value="2"> Option 2</option>
-                        <option value="3"> Option 3</option>
-                        <option value="4" disabled="disabled"> Option 4</option>
-                    </select>
-                </td>
-                <td>
-                    <p>hidden</p>
-                    <select id="hidden-select" hidden="hidden"></select>
-                    <input id="hidden-input" type="text" style="display:none"/>
-                </td>
-            </tr>
-            <!-- Checkboxes -->
-            <tr>
-                <td><input id="checkbox1" name="checkbox1" type="checkbox" checked="checked"/>
-                    <span>checkbox1</span></td>
-                <td><input id="checkbox2" name="checkbox2" type="checkbox"/>
-                    <span>checkbox2</span></td>
-                <td><input id="checkbox3" name="checkbox3" type="checkbox"/>
-                    <span>checkbox3</span></td>
-            </tr>
-            <!-- Radiobuttons -->
-            <tr>
-                <td><input id="radio1" name="radiobutton" type="radio" checked="checked"/>
-                    <label>radio1</label></td>
-                <td><input id="radio2" name="radiobutton" type="radio"/>
-                    <label>radio2</label></td>
-                <td><input id="radio3" name="radiobutton" type="radio"/>
-                    <label>radio3</label></td>
-            </tr>
-            <tr>
-                <td colspan=3>
-                    <input class="button" id="submit" name="submit" type="submit" form="submit-form"
-                           value="submit"/>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </form>
-
-</div>
-<div style="height: 10px;"></div>
-<!-- Buttons -->
-<div id="buttons">
-    <button class="button" id="alert" name="alert" type="button">alert</button>
-    <input class="button" id="confirm" name="confirm" type="button" value="confirm"/>
-    <button class="button" id="prompt" name="prompt" type="button">prompt</button>
-    <input id="result" name="result" type="text"/>
-</div>
-<div style="height: 10px;"></div>
-<!-- Links -->
-<div>
-    <a id="new-window" name="new-window" href="./new_window.html" target="_blank">new window</a>
-    <a id="next-page" name="next-page" href="./next_page.html">next page</a>
-    <a id="new-iframe" name="new-iframe" href="javascript:;">new frame</a>
-</div>
-
-<!-- Append to this -->
-<div id="append"></div>
-
-<!-- Scroll to -->
-<div style="height: 2000px;"></div>
-<div id="scroll-to">scroll success</div>
+    <!-- input -->
+    <div class="input">
+        <!-- form -->
+        <form id="form" action="">
+            <!-- text -->
+            <h3>text:</h3>
+            <input type="text" id="text" name="text" value="text" />
+            <input disabled type="text" id="disabled" value="disabled" />
+            <!-- password -->
+            <h3>password:</h3>
+            <input type="password" id="password" name="password" />
+            <h3>submit & reset:</h3>
+            <input id="submit" type="submit" value="Submit" class="button" />
+            <input id="reset" type="reset" value="Reset" class="button">
+        </form>
+        <!-- button -->
+        <h3>input button</h3>
+        <input type="button" class="button" id="click" value="click" />
+        <input type="button" class="button" id="rightclick" value="rightclick" />
+        <input type="button" class="button" id="jsclick" value="jsclick" />
+        <input type="button" class="button" id="dblclick" value="dblclick" />
+        <!-- file -->
+        <h3>file:</h3>
+        <input id="file" type="file" />
+        <!-- checkbox -->
+        <h3>checkbox:</h3>
+        <input id="checkbox1" type="checkbox" checked="checked" />
+        <span>checkbox1</span>
+        <input id="checkbox2" type="checkbox" />
+        <span>checkbox2</span>
+        <!-- radio group -->
+        <h3>radio:</h3>
+        <input value="1" name="radio" type="radio" checked="checked" />
+        <label>radio1</label>
+        <input value="2" name="radio" type="radio" />
+        <label>radio2</label>
+        <input value="3" name="radio" type="radio" />
+        <label>radio3</label>
+        <!-- input image -->
+        <h3>input image:</h3>
+        <input type="image" src="browser.png" alt="browser" id="image" />
+        <h3>hidden:</h3>
+        <input type="hidden" name="hidden" value="hidden" />
+        <input type="text" id="display" style="display: none;" />
+    </div>
+    <!-- textarea -->
+    <h3>textarea:</h3>
+    <textarea name="textarea" id="textarea" cols="30" rows="3"></textarea>
+    <!-- button -->
+    <h3>button:</h3>
+    <button id="button" class="button">button</button>
+    <!-- select -->
+    <h3>select:</h3>
+    <select id="select" name="select" class="select">
+        <option value="1" selected="selected"> Option 1</option>
+        <option value="2"> Option 2</option>
+        <option value="3"> Option 3</option>
+        <option value="4" disabled="disabled"> Option 4</option>
+    </select>
+    <!-- link -->
+    <h3>link:</h3>
+    <a href="http://">link1</a>
+    <a href="mouse_over.html" target="_blank" id="mouseover">mouse over page</a>
 </body>
 
 </html>

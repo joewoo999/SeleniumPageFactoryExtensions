@@ -21,6 +21,7 @@ package com.github.pfextentions.core.page.pageObject.functions;
 
 import com.github.pfextentions.core.page.pageObject.function.ActionConsumer;
 import com.github.pfextentions.core.page.pageObject.functions.actions.DoubleLeftClick;
+import com.github.pfextentions.core.page.pageObject.functions.actions.RightClick;
 import com.github.pfextentions.core.page.pageObject.functions.actions.TypeText;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +34,7 @@ public class Action {
 
     public static ActionConsumer MOVE_TO = new DoubleLeftClick();
 
-    public static ActionConsumer RIGHT_CLICK = new DoubleLeftClick();
+    public static ActionConsumer RIGHT_CLICK = new RightClick();
 
     @NotNull
     @Contract(value = "_ -> new", pure = true)

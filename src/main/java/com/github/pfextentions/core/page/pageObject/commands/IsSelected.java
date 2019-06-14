@@ -36,6 +36,6 @@ public class IsSelected implements CommandPredicate {
 
     @Override
     public String toString() {
-        return String.format("Element:%s is selected: %s.", locator, isSelected);
+        return String.format("Element: %s is selected: %s.", locator, isSelected);
     }
 }

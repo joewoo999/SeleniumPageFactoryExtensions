@@ -114,6 +114,6 @@ public class PageElementLocator implements ElementLocator {
 
     @Override
     public String toString() {
-        return " '" + by + "'";
+        return "'" + by + "'";
     }
 }

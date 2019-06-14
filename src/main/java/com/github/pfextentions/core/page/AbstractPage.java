@@ -70,6 +70,12 @@ public abstract class AbstractPage implements Page {
     }
 
     @Override
+    public void refresh() {
+        driver().navigate().refresh();
+        log.debug("Page refreshed.");
+    }
+
+    @Override
     public Object executeJS(String script, Object... args) {
         return DriverContext.getJSExecutor().executeScript(script, args);
     }
@@ -85,4 +91,5 @@ public abstract class AbstractPage implements Page {
         executeJS("window.scrollTo(0, document.body.clientHeight);");
         log.debug("Page scrolled to bottom.");
     }
+
 }

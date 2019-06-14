@@ -36,6 +36,6 @@ public class IsEnabled implements CommandPredicate  {
 
     @Override
     public String toString() {
-        return String.format("Element:%s is enabled: %s.", locator, isEnabled);
+        return String.format("Element: %s is enabled: %s.", locator, isEnabled);
     }
 }

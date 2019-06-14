@@ -33,6 +33,6 @@ public class Click implements CommandConsumer {
 
     @Override
     public String toString() {
-        return String.format("Click element:%s.", locator);
+        return String.format("Click element: %s.", locator);
     }
 }

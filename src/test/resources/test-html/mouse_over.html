@@ -1,19 +1,21 @@
 <html>
 
 <head>
-    <title> new window </title>
+    <title> Mouseover </title>
     <script>
-        function over(){
-            document.getElementById("over").setAttribute("class","hover");
+        function over() {
+            document.getElementById("over").setAttribute("class", "hover");
+            document.getElementById("over").innerHTML = "<h2>Mouseover here</h2>";
         }
-        function out(){
+        function out() {
             document.getElementById("over").removeAttribute("class");
+            document.getElementById("over").innerHTML = "<h2>Mouseover event</h2>";
         }
     </script>
     <style>
         #over {
             background-color: lightgray;
-            padding: 10px;
+            padding: 5px;
             width: 135px;
             text-align: center;
         }
@@ -21,7 +23,7 @@
         #over.hover {
             background-color: lightblue;
             cursor: pointer;
-            padding: 10px;
+            padding: 5px;
             width: 135px;
             text-align: center;
         }
@@ -31,7 +33,7 @@
 <body>
     <!-- Texts -->
     <div>
-        <h1>This is the new window test.</h1>
+        <h2>This is the mouse over test page.</h2>
         <!-- mouse over -->
         <div>
             <div id="over" onmouseover="over();" onmouseout="out();">

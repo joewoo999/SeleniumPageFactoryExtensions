@@ -31,7 +31,7 @@ public class ScrollToCenter implements CommandConsumer {
         this.locator = locator;
 
         DriverContext.getJSExecutor()
-                .executeScript("window.scrollTo(0,arguments[0].offsetTop - window.screen.height/2)",
+                .executeScript("window.scrollTo(0,arguments[0].offsetTop)",
                         locator.findElement());
     }
 

@@ -37,7 +37,7 @@ public class GetAttribute implements CommandFunction<String> {
 
     @Override
     public String toString() {
-        return String.format("Element:%s attribute '%s' value is '%s'.",
+        return String.format("Element: %s attribute '%s' value is '%s'.",
                 locator, attr, value);
     }
 }

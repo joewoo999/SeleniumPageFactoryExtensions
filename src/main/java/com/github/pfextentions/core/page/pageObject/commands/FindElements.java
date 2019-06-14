@@ -34,9 +34,6 @@ public class FindElements implements CommandFunction<List<WebElement>> {
     @Override
     public List<WebElement> apply(ElementLocator locator, Object[] objects) {
         this.locator = locator;
-
-        if (!(objects[0] instanceof By))
-            return null;
         this.by = (By) objects[0];
 
         return locator.findElement().findElements(by);
@@ -44,6 +41,6 @@ public class FindElements implements CommandFunction<List<WebElement>> {
 
     @Override
     public String toString() {
-        return String.format("Find child elements: '%s' of parent: '%s'", by, locator);
+        return String.format("Find child elements: '%s' of parent: %s", by, locator);
     }
 }

@@ -1,6 +1,6 @@
 package com.github.pfextentions.core.driverContext;
 
-import com.github.pfextentions.BaseTest;
+import com.github.pfextentions.core.page.DemoPage;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -10,13 +10,13 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
 
-public class DriverScreenshotTest extends BaseTest {
+public class DriverScreenshotTest {
     private String fileName = "shot.png";
 
     @BeforeClass
     public static void before() {
         DriverFactory.setUp();
-        DriverContext.getDriver().get(TEST_URL);
+        DriverContext.getDriver().get(DemoPage.URL);
     }
 
     @Test

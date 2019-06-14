@@ -1,15 +1,13 @@
 package com.github.pfextentions.core.driverContext.drivers;
 
-import com.github.pfextentions.BaseTest;
 import com.github.pfextentions.core.Configuration;
+import com.github.pfextentions.core.page.DemoPage;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Map;
-
-public class ChromeTest extends BaseTest {
+public class ChromeTest {
     private static Chrome chrome;
 
     @BeforeClass
@@ -20,8 +18,8 @@ public class ChromeTest extends BaseTest {
     @Test
     public void start() {
         chrome.start();
-        chrome.getWebDriver().get(TEST_URL);
-        Assert.assertEquals(chrome.getWebDriver().getTitle(), TEST_TITLE);
+        chrome.getWebDriver().get(DemoPage.URL);
+        Assert.assertEquals(chrome.getWebDriver().getTitle(), DemoPage.TITLE);
     }
 
     @AfterClass

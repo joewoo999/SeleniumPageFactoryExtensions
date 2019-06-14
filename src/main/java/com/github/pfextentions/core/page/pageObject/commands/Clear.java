@@ -33,6 +33,6 @@ public class Clear implements CommandConsumer {
 
     @Override
     public String toString() {
-        return String.format("Clear element:%s value.", locator);
+        return String.format("Clear element: %s value.", locator);
     }
 }

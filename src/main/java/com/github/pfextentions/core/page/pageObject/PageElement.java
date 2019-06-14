@@ -48,7 +48,7 @@ public interface PageElement extends WebElement {
 
     List<WebElement> findElements(By by);
 
-    WebElement findElement(By by);
+    PageElement findElement(By by);
 
     boolean isDisplayed();
 

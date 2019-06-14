@@ -42,7 +42,7 @@ public class IsDisplayed implements CommandPredicate {
 
     @Override
     public String toString() {
-        return String.format("Element:%s is displayed: %s.",
+        return String.format("Element: %s is displayed: %s.",
                 locator, isDisplayed);
     }
 }

@@ -1,14 +1,13 @@
 package com.github.pfextentions.core.driverContext.drivers;
 
-import com.github.pfextentions.BaseTest;
 import com.github.pfextentions.core.Configuration;
-import com.github.pfextentions.core.PropertiesConfig;
+import com.github.pfextentions.core.page.DemoPage;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class InternetExplorerTest extends BaseTest {
+public class InternetExplorerTest {
     private static InternetExplorer ie;
 
     @BeforeClass
@@ -19,8 +18,8 @@ public class InternetExplorerTest extends BaseTest {
     @Test
     public void start() {
         ie.start();
-        ie.getWebDriver().get(TEST_URL);
-        Assert.assertEquals(ie.getWebDriver().getTitle(), TEST_TITLE);
+        ie.getWebDriver().get(DemoPage.URL);
+        Assert.assertEquals(ie.getWebDriver().getTitle(), DemoPage.TITLE);
     }
 
     @AfterClass

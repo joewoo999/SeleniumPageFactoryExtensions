@@ -35,9 +35,6 @@ public class FindElement implements CommandFunction<PageElement> {
 
     @Override
     public PageElement apply(ElementLocator locator, Object[] objects) {
-        if(!(objects[0] instanceof By))
-            return null;
-
         this.locator = locator;
         this.by = (By) objects[0];
 

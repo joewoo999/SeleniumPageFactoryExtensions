@@ -39,6 +39,8 @@ public interface Page {
 
     void getScreenshot(String filePath);
 
+    void refresh();
+
     Object executeJS(String script, Object... args);
 
     void scrollToTop();

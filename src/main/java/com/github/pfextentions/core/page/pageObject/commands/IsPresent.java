@@ -42,6 +42,6 @@ public class IsPresent implements CommandPredicate {
 
     @Override
     public String toString() {
-        return String.format("Element '%s' is present: %s.", locator, isPresent);
+        return String.format("Element %s is present: %s.", locator, isPresent);
     }
 }
