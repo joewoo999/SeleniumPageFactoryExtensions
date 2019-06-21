@@ -26,15 +26,11 @@ import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 public class WaitUntil implements CommandFunction<Object> {
     private Condtion<?> func;
-    private int timeoutInSec;
 
     @Override
     public Object apply(ElementLocator locator, Object[] objects) {
-        if(!(objects[0] instanceof Condtion && objects[1] instanceof Integer))
-            return false;
-
         func = (Condtion)objects[0];
-        timeoutInSec = (int)objects[1];
+        int timeoutInSec = (int)objects[1];
 
         return PageElementWait.getInstance(locator).withTimeout(timeoutInSec).until(func);
     }

@@ -30,9 +30,6 @@ public class WaitWhile implements CommandFunction<Object> {
 
     @Override
     public Object apply(ElementLocator locator, Object[] objects) {
-        if (!(objects[0] instanceof Condtion && objects[1] instanceof Integer))
-            return false;
-
         func = new Not((Condtion) objects[0]);
         int timeoutInSec = (int) objects[1];
 

@@ -50,12 +50,12 @@ public class PageElementListHandler<T extends PageElement> implements Invocation
         if ("tostring".equalsIgnoreCase(method.getName())) {
             return "Proxy element for: " + locator;
         }
-        if ("clear".equalsIgnoreCase(method.getName())) {
-            if (!cachedElements.isEmpty()) {
-                cachedElements.clear();
-            }
-            return cachedElements;
-        }
+//        if ("clear".equalsIgnoreCase(method.getName())) {
+//            if (!cachedElements.isEmpty()) {
+//                cachedElements.clear();
+//            }
+//            return cachedElements;
+//        }
 
         List<WebElement> elements = locator.findElements();
         int size = locator.findElements().size();

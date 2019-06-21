@@ -32,10 +32,13 @@ public class Not implements Condtion<Object> {
     @Override
     public Object apply(ElementLocator locator) {
         Object value = func.apply(locator);
-        if (null == value || value.equals(Boolean.FALSE))
+        if (Boolean.FALSE.equals(value)) {
             return true;
-        else
-            return null;
+        } else if (Boolean.TRUE.equals(value)) {
+            return false;
+        } else {
+            return value;
+        }
     }
 
     @Override

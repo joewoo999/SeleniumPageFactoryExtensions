@@ -30,7 +30,8 @@ public class Resources {
         if (null == fileName || fileName.isBlank())
             return fileName;
         URL u = getURL(fileName);
-        return u.getPath();
+        String path = getURL(fileName).getPath();
+        return path.startsWith("/") ? path.substring(1) : path;
     }
 
     public static URL getURL(String fileName) {

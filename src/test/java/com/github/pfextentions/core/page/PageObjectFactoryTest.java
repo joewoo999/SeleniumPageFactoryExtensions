@@ -17,31 +17,31 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject;
+package com.github.pfextentions.core.page;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.FluentWait;
+import com.github.pfextentions.core.Configuration;
+import com.github.pfextentions.core.driverContext.DriverContext;
+import com.github.pfextentions.core.driverContext.DriverFactory;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import java.time.Duration;
+import static org.junit.Assert.*;
 
-public class PageElementWait extends FluentWait<ElementLocator> {
-
-
-    public PageElementWait(ElementLocator locator) {
-        super(locator);
-    }
-    
-    @NotNull
-    @Contract("_ -> new")
-    public static PageElementWait getInstance(ElementLocator locator) {
-        return new PageElementWait(locator);
+public class PageObjectFactoryTest {
+    @BeforeClass
+    public static void before() {
+        Configuration config = Configuration.of("chrome", "true", "");
+        DriverFactory.setUp(config);
     }
 
-    public PageElementWait withTimeout(long second) {
-        return (PageElementWait) super.withTimeout(Duration.ofSeconds(second));
+    @Test
+    public void initElements() {
+        DemoPage page = PageObjectFactory.initElements(DriverContext.getDriver(), DemoPage.class);
+        page.open();
+        assertEquals("test page", page.title());
     }
 
-
+    @Test
+    public void initElements1() {
+    }
 }

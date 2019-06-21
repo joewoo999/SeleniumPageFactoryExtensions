@@ -6,12 +6,10 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
 
 public class DriverScreenshotTest {
-    private String fileName = "shot.png";
 
     @BeforeClass
     public static void before() {
@@ -21,14 +19,11 @@ public class DriverScreenshotTest {
 
     @Test
     public void take() {
+        String fileName = "shot.png";
         DriverScreenshot.take(fileName);
-        Assert.assertTrue(FileUtils.waitFor(new File(fileName), 5));
-    }
-
-    @Test
-    public void take1() {
-        DriverScreenshot.take((TakesScreenshot) DriverContext.getDriver(), fileName + ".jpg");
-        Assert.assertTrue(FileUtils.waitFor(new File(fileName), 5));
+        File file = new File(fileName);
+        Assert.assertTrue(FileUtils.waitFor(file, 5));
+        FileUtils.deleteQuietly(file);
     }
 
     @AfterClass

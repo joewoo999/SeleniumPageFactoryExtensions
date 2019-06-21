@@ -31,7 +31,7 @@ public class Select implements CommandFunction<Object> {
 
     @Override
     public Object apply(ElementLocator locator, Object[] objects) {
-        Object object;
+        Object object = null;
         Class cls = objects[0].getClass();
 
         if (OptionFunction.class.isAssignableFrom(cls)) {
@@ -43,9 +43,6 @@ public class Select implements CommandFunction<Object> {
             RadioGroupFunction<?> command = (RadioGroupFunction) objects[0];
             object = command.apply(locator);
             toString = command.toString();
-
-        } else {
-            throw new UnsupportedCommandException("Unsupported command class type:" + cls.getSimpleName());
         }
         return object;
     }

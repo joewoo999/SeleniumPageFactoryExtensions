@@ -17,31 +17,25 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject;
+package com.github.pfextentions.core.page.pageFactory;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.FluentWait;
+import com.github.pfextentions.core.page.PageBaseTest;
+import com.github.pfextentions.core.page.pageObject.commands.Sendkeys;
+import org.junit.Test;
 
-import java.time.Duration;
+import static org.junit.Assert.assertEquals;
 
-public class PageElementWait extends FluentWait<ElementLocator> {
+public class PageElementHandlerTest extends PageBaseTest {
 
-
-    public PageElementWait(ElementLocator locator) {
-        super(locator);
-    }
-    
-    @NotNull
-    @Contract("_ -> new")
-    public static PageElementWait getInstance(ElementLocator locator) {
-        return new PageElementWait(locator);
+    @Test
+    public void testToString() {
+        assertEquals("Proxy element for: 'By.id: text'", page.text.toString());
     }
 
-    public PageElementWait withTimeout(long second) {
-        return (PageElementWait) super.withTimeout(Duration.ofSeconds(second));
+    @Test
+    public void testExecute() {
+        page.textarea.execute(Sendkeys::new, "textarea");
+        assertEquals("textarea", page.textarea.getValue());
     }
-
 
 }

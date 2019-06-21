@@ -20,10 +20,14 @@
 package com.github.pfextentions.core.page;
 
 import com.github.pfextentions.common.Resources;
-import com.github.pfextentions.core.driverContext.DriverFactory;
+import com.github.pfextentions.core.driverContext.DriverContext;
+import com.github.pfextentions.core.page.pageObject.expectedCondtion.Be;
 import com.github.pfextentions.core.page.pageObject.functions.Action;
+import com.github.pfextentions.core.page.pageObject.functions.Option;
+import com.github.pfextentions.core.page.pageObject.functions.Radio;
 import org.apache.commons.io.FileUtils;
-import org.junit.*;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -31,178 +35,240 @@ import org.openqa.selenium.Rectangle;
 
 import java.io.File;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PageElementTest {
-    private static DemoPage page;
+import static org.junit.Assert.*;
 
-    @BeforeClass
-    public static void before() {
-        DriverFactory.setUp();
-        page = new DemoPage();
-        page.open();
-        page.maximizeWindow();
-        page.assertPageOpened();
-    }
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class PageElementTest extends PageBaseTest {
 
     @Test
     public void testClear() {
         page.text.clear();
-        Assert.assertTrue(page.text.getValue().isEmpty());
+        assertTrue(page.text.getValue().isEmpty());
     }
 
     @Test
     public void testClick() {
         page.click.click();
-        Assert.assertTrue(page.clickCheck.isPresent());
+        assertTrue(page.clickCheck.isPresent());
     }
 
     @Test
     public void testClickByJs() {
         page.jsclick.clickByJS();
-        Assert.assertTrue(page.jsclickCheck.isPresent());
+        assertTrue(page.jsclickCheck.isPresent());
     }
 
     @Test
     public void testDoubleClick() {
         page.dblclick.doubleClick();
-        Assert.assertTrue(page.dblclickCheck.isPresent());
+        assertTrue(page.dblclickCheck.isPresent());
     }
 
     @Test
     public void testFindElement() {
-        Assert.assertTrue(page.form.findElement(By.id("text")).isPresent());
+        assertTrue(page.form.findElement(By.id("text")).isPresent());
     }
 
     @Test
     public void testFindElements() {
-        Assert.assertFalse(page.form.findElements(By.tagName("input")).isEmpty());
+        assertFalse(page.form.findElements(By.tagName("input")).isEmpty());
     }
 
     @Test
     public void testGetAttribute() {
-        Assert.assertEquals("password", page.password.getAttribute("type"));
+        assertEquals("password", page.password.getAttribute("type"));
     }
 
     @Test
     public void testGetCssValue() {
-        Assert.assertEquals("none", page.display.getCssValue("display"));
+        assertEquals("none", page.display.getCssValue("display"));
     }
 
     @Test
     public void testGetLocation() {
         //chrome
-        Assert.assertEquals("(8, 18)", page.form.getLocation().toString());
+        if (DriverContext.getConfig().isChrome()) {
+            assertEquals("(8, 18)", page.form.getLocation().toString());
+        }
     }
 
     @Test
     public void testGetRect() {
         //chrome
-        Rectangle rectangle = page.form.getRect();
-        Assert.assertEquals("(8, 18)", rectangle.getPoint().toString());
-        Assert.assertEquals("(767, 223)", rectangle.getDimension().toString());
+        if (DriverContext.getConfig().isChrome()) {
+            Rectangle rectangle = page.form.getRect();
+            assertEquals("(8, 18)", rectangle.getPoint().toString());
+            assertEquals("(767, 223)", rectangle.getDimension().toString());
+        }
     }
 
     @Test
     public void testGetScreenshot() {
         page.form.getScreenshot("form.png");
         File file = new File("form.png");
-        Assert.assertTrue(FileUtils.waitFor(file, 5));
+        assertTrue(FileUtils.waitFor(file, 5));
         FileUtils.deleteQuietly(file);
     }
 
     @Test
     public void testGetScreenshotAs() {
         String file = page.form.getScreenshotAs(OutputType.BASE64);
-        Assert.assertFalse(file.isEmpty());
+        assertFalse(file.isEmpty());
     }
 
     @Test
     public void testGetSize() {
         //chrome
-        Assert.assertEquals("(767, 223)", page.form.getSize().toString());
+        if (DriverContext.getConfig().isChrome()) {
+            assertEquals("(767, 223)", page.form.getSize().toString());
+        }
     }
 
     @Test
     public void testGetTagName() {
-        Assert.assertEquals("input", page.password.getTagName());
+        assertEquals("input", page.password.getTagName());
     }
 
     @Test
     public void testGetText() {
-        Assert.assertEquals("button", page.button.getText());
+        assertEquals("show", page.show.getText());
     }
 
     @Test
     public void testGetValue() {
-        Assert.assertEquals("Submit", page.submit.getValue());
+        assertEquals("Submit", page.submit.getValue());
     }
 
     @Test
     public void testGetWebElement() {
-        Assert.assertNotNull(page.submit.getWebElement());
+        assertNotNull(page.submit.getWebElement());
     }
 
     @Test
     public void testIsDisplayed() {
-        Assert.assertTrue(page.text.isDisplayed());
-        Assert.assertFalse(page.display.isDisplayed());
-        Assert.assertFalse(page.hidden.isDisplayed());
-        Assert.assertFalse(page.clickCheck.isDisplayed());
+        assertTrue(page.text.isDisplayed());
+        assertFalse(page.display.isDisplayed());
+        assertFalse(page.hidden.isDisplayed());
+        page.refresh();
+        assertFalse(page.clickCheck.isDisplayed());
     }
 
     @Test
     public void testIsEnabled() {
-        Assert.assertTrue(page.text.isEnabled());
-        Assert.assertFalse(page.disabled.isEnabled());
+        assertTrue(page.text.isEnabled());
+        assertFalse(page.disabled.isEnabled());
     }
 
     @Test
     public void testIsPresent() {
-        Assert.assertTrue(page.disabled.isPresent());
+        assertTrue(page.disabled.isPresent());
         page.refresh();
-        Assert.assertFalse(page.clickCheck.isPresent());
+        assertFalse(page.clickCheck.isPresent());
     }
 
     @Test
     public void testIsSelected() {
-        Assert.assertTrue(page.checkbox1.isSelected());
-        Assert.assertFalse(page.checkbox2.isSelected());
+        assertTrue(page.checkbox1.isSelected());
+        assertFalse(page.checkbox2.isSelected());
     }
 
     @Test
     public void testPerformDoubleClick() {
         page.dblclick.perform(Action.DOUBLE_CLICK);
-        Assert.assertTrue(page.dblclickCheck.isPresent());
+        assertTrue(page.dblclickCheck.isPresent());
     }
 
     @Test
     public void testPerformClick() {
         page.click.perform(Action.CLICK);
-        Assert.assertTrue(page.clickCheck.isPresent());
+        assertTrue(page.clickCheck.isPresent());
     }
 
     @Test
     public void testPerformMoveTo() {
-        page.text.perform(Action.MOVE_TO);
-        Assert.assertEquals("mouse over", page.text.getValue());
+        page.img1.perform(Action.MOVE_TO);
+        assertEquals("browser safari", page.img1.getAttribute("class"));
     }
 
     @Test
     public void testPerformRightClick() {
         page.rightclick.perform(Action.RIGHT_CLICK);
-        Assert.assertTrue(page.rightclickCheck.isPresent());
+        assertTrue(page.rightclickCheck.isPresent());
     }
 
     @Test
     public void testScrollToCenter() {
-        page.ieImage.scrollToCenter();
+        page.img1.scrollToCenter();
         //chrome
-        Assert.assertEquals("(8, 620)", page.ieImage.getLocation().toString());
-
+        if (DriverContext.getConfig().isChrome()) {
+            assertEquals("(8, 620)", page.img1.getLocation().toString());
+        }
     }
 
-    @AfterClass
-    public static void after() {
-        DriverFactory.tearDown();
+    @Test
+    public void testSelectOption() {
+        page.select.select(Option.byIndex(1));
+        assertEquals("Option 2", page.select.select(Option.GET_SELECTED_TEXT));
+
+        page.select.select(Option.byText("Option 3"));
+        assertEquals("Option 3", page.select.select(Option.GET_SELECTED_TEXT));
+
+        page.select.select(Option.byValue("1"));
+        assertEquals("Option 1", page.select.select(Option.GET_SELECTED_TEXT));
     }
+
+    @Test
+    public void testSelectRadio() {
+        page.radio.select(Radio.byIndex(1));
+        page.radio.select(Radio.byLabelText("radio3"));
+        page.radio.select(Radio.byValue("1"));
+    }
+
+
+    @Test
+    public void testSendKeys() {
+        page.text.sendKeys("sendKeys");
+        assertEquals("sendKeys", page.text.getValue());
+    }
+
+    @Test
+    public void testSetValue() {
+        page.disabled.setValue("setValue");
+        assertEquals("setValue", page.disabled.getValue());
+    }
+
+    @Test
+    public void testShould1() {
+        page.disabled.should(Be.present);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testShould2() {
+        page.disabled.should(Be.enabled);
+    }
+
+    @Test
+    public void testSubmit() {
+        page.submit.submit();
+    }
+
+    @Test
+    public void testUploadFile() {
+        page.file.uploadFile(Resources.getPath("test-html/pic/browser.png"));
+        assertTrue(page.img4.isDisplayed());
+    }
+
+    @Test
+    public void testWaitUntil() {
+        page.show.click();
+        page.showSomething.waitUntil(Be.visible, 5);
+    }
+
+    @Test
+    public void testWaitWhile() {
+        page.hide.click();
+        page.hideSomething.waitWhile(Be.visible, 5);
+    }
+
 }

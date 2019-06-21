@@ -17,31 +17,28 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject;
+package com.github.pfextentions.core.page;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.FluentWait;
+import com.github.pfextentions.core.Configuration;
+import com.github.pfextentions.core.driverContext.DriverFactory;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
-import java.time.Duration;
+public class PageBaseTest {
+    protected static DemoPage page;
 
-public class PageElementWait extends FluentWait<ElementLocator> {
-
-
-    public PageElementWait(ElementLocator locator) {
-        super(locator);
-    }
-    
-    @NotNull
-    @Contract("_ -> new")
-    public static PageElementWait getInstance(ElementLocator locator) {
-        return new PageElementWait(locator);
+    @BeforeClass
+    public static void before() {
+        Configuration config = Configuration.of("chrome", "true", "");
+        DriverFactory.setUp(config);
+        page = new DemoPage();
+        page.open();
+        page.assertPageOpened();
+        page.maximizeWindow();
     }
 
-    public PageElementWait withTimeout(long second) {
-        return (PageElementWait) super.withTimeout(Duration.ofSeconds(second));
+    @AfterClass
+    public static void after() {
+        DriverFactory.tearDown();
     }
-
-
 }

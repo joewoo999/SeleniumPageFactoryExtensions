@@ -27,12 +27,12 @@ import java.util.Arrays;
 
 public class Sendkeys implements CommandConsumer {
     private ElementLocator locator;
-    private CharSequence[] text;
+    private String text;
 
     @Override
     public void accept(ElementLocator locator, Object[] objects) {
         this.locator = locator;
-        this.text = (CharSequence[])objects[0];
+        this.text = (String) objects[0];
 
         WebElement element = locator.findElement();
         element.clear();
@@ -42,6 +42,6 @@ public class Sendkeys implements CommandConsumer {
     @Override
     public String toString() {
         return String.format("Input text:%s into element:%s.",
-                Arrays.toString(text), locator);
+                text, locator);
     }
 }

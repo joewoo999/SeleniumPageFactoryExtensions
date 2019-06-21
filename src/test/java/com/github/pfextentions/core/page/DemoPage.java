@@ -51,7 +51,7 @@ public class DemoPage extends AbstractPage {
     PageElement form;
 
     @FindBy(id = "text")
-    PageElement text;
+    public PageElement text;
 
     @FindBy(id = "disabled")
     PageElement disabled;
@@ -98,20 +98,20 @@ public class DemoPage extends AbstractPage {
     @FindBy(id = "checkbox2")
     PageElement checkbox2;
 
-    @FindBy(id = "radio")
+    @FindBy(name = "radio")
     PageElement radio;
 
-    @FindBy(id = "ie")
-    PageElement ieImage;
+    @FindBy(id = "img1")
+    PageElement img1;
+
+    @FindBy(id = "img4")
+    PageElement img4;
 
     @FindBy(name = "hidden")
     PageElement hidden;
 
     @FindBy(id = "textarea")
-    PageElement textarea;
-
-    @FindBy(id = "button")
-    PageElement button;
+    public PageElement textarea;
 
     @FindBy(id = "select")
     PageElement select;
@@ -119,6 +119,18 @@ public class DemoPage extends AbstractPage {
     @FindBy(id = "display")
     PageElement display;
 
-    @FindAll({@FindBy(tagName = "input")})
-    List<PageElement> inputs;
+    @FindBy(id = "show")
+    PageElement show;
+
+    @FindBy(id = "hide")
+    PageElement hide;
+
+    @FindBy(id = "show-something")
+    PageElement showSomething;
+
+    @FindBy(id = "hide-something")
+    PageElement hideSomething;
+
+    @FindAll({@FindBy(name = "radio")})
+    public List<PageElement> radios;
 }

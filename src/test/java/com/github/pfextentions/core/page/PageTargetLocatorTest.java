@@ -17,31 +17,51 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject;
+package com.github.pfextentions.core.page;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.FluentWait;
+import org.junit.Test;
 
-import java.time.Duration;
+import static org.junit.Assert.*;
 
-public class PageElementWait extends FluentWait<ElementLocator> {
+public class PageTargetLocatorTest extends PageBaseTest{
 
-
-    public PageElementWait(ElementLocator locator) {
-        super(locator);
-    }
-    
-    @NotNull
-    @Contract("_ -> new")
-    public static PageElementWait getInstance(ElementLocator locator) {
-        return new PageElementWait(locator);
+    @Test
+    public void frame() {
     }
 
-    public PageElementWait withTimeout(long second) {
-        return (PageElementWait) super.withTimeout(Duration.ofSeconds(second));
+    @Test
+    public void frame1() {
     }
 
+    @Test
+    public void frame2() {
+    }
 
+    @Test
+    public void parentFrame() {
+    }
+
+    @Test
+    public void window() {
+    }
+
+    @Test
+    public void defaultContent() {
+    }
+
+    @Test
+    public void activeElement() {
+    }
+
+    @Test
+    public void alert() {
+    }
+
+    @Test
+    public void windowByTitle() {
+    }
+
+    @Test
+    public void newWindow() {
+    }
 }

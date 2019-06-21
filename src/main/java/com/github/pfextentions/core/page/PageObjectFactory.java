@@ -45,7 +45,7 @@ public class PageObjectFactory {
         initElements(new PageFieldDecorator(driver), page);
     }
 
-    public static void initElements(FieldDecorator decorator, @NotNull Object page) {
+    private static void initElements(FieldDecorator decorator, @NotNull Object page) {
         Class<?> proxyIn = page.getClass();
         while (proxyIn != Object.class) {
             proxyFields(decorator, page, proxyIn);

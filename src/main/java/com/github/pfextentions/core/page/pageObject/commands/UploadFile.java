@@ -41,7 +41,7 @@ public class UploadFile implements CommandConsumer {
 
     @Override
     public String toString() {
-        return String.format("Input file:%s into element:%s.",
+        return String.format("Click element:%s to upload file: '%s'.",
                 file, locator);
     }
 }

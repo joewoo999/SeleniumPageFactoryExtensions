@@ -17,31 +17,22 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page.pageObject;
+package com.github.pfextentions.core.page.pageFactory;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.FluentWait;
+import com.github.pfextentions.core.page.PageBaseTest;
+import org.junit.Test;
 
-import java.time.Duration;
+import static org.junit.Assert.*;
 
-public class PageElementWait extends FluentWait<ElementLocator> {
+public class PageElementListHandlerTest extends PageBaseTest {
 
-
-    public PageElementWait(ElementLocator locator) {
-        super(locator);
-    }
-    
-    @NotNull
-    @Contract("_ -> new")
-    public static PageElementWait getInstance(ElementLocator locator) {
-        return new PageElementWait(locator);
+    @Test
+    public void testToString() {
+        assertEquals("Proxy element for: 'By.all({By.name: radio})'", page.radios.toString());
     }
 
-    public PageElementWait withTimeout(long second) {
-        return (PageElementWait) super.withTimeout(Duration.ofSeconds(second));
+    @Test
+    public void testElements() {
+        assertTrue(page.radios.get(0).isEnabled());
     }
-
-
 }
