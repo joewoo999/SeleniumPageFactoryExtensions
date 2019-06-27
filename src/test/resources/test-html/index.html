@@ -5,7 +5,9 @@
     <title>test page</title>
     <script src="jquery-1.10.1.js"></script>
     <script src="loading.js"></script>
+    <script src="iframe.js"></script>
     <link rel="stylesheet" href="loading.css" />
+    <link rel="stylesheet" href="iframe.css" />
     <script>
         $(function () {
             var dblclick = $('#dblclick');
@@ -63,6 +65,15 @@
                     hide_something.css('display', 'none');
                 }, 2000);
             });
+            $('#frame').click(function () {
+                addMask();
+                addFrame('index.html');
+                $('.box-title.close').click(function () {
+                    removeFrame();
+                    removeMask();
+                });
+            });
+            $('#frame').click();
         });
 
     </script>
@@ -156,7 +167,7 @@
     <!-- link -->
     <label>
         <h3>link:</h3>
-        <a href="http://">link1</a>
+        <a href="javascript:;" id="frame">frame</a>
         <a href="" target="_blank" id="mouseover">mouse over page</a>
     </label>
 </body>

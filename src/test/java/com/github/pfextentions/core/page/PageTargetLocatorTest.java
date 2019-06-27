@@ -27,41 +27,53 @@ public class PageTargetLocatorTest extends PageBaseTest{
 
     @Test
     public void frame() {
+        page.switchTo().frame(0);
+        assertEquals("", page.title());
     }
 
     @Test
     public void frame1() {
+        page.switchTo().frame("");
+        assertEquals("", page.title());
     }
 
     @Test
     public void frame2() {
+        page.switchTo().frame(page.click);
     }
 
     @Test
     public void parentFrame() {
+        page.switchTo().parentFrame();
     }
 
     @Test
     public void window() {
+        page.switchTo().window("");
     }
 
     @Test
     public void defaultContent() {
+        page.switchTo().defaultContent();
     }
 
     @Test
     public void activeElement() {
+        page.switchTo().activeElement();
     }
 
     @Test
     public void alert() {
+        page.switchTo().alert();
     }
 
     @Test
     public void windowByTitle() {
+        page.switchTo().windowByTitle("");
     }
 
     @Test
     public void newWindow() {
+        page.switchTo().newWindow();
     }
 }
