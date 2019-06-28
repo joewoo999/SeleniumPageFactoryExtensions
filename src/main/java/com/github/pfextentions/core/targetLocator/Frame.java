@@ -17,35 +17,25 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page;
+package com.github.pfextentions.core.targetLocator;
 
-import com.github.pfextentions.core.targetLocator.PageTargetLocator;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public interface Page {
+public interface Frame {
 
-    String url();
+    void getUrl();
 
-    String title();
+    void getTitle();
 
-    void open();
+    void switchToParent();
 
-    void maximizeWindow();
+    void switchToDefault();
 
-    void assertPageOpened();
+    void switchTo(int index);
 
-    WebDriver driver();
+    void switchTo(String nameOrId);
 
-    PageTargetLocator switchTo();
-
-    void getScreenshot(String filePath);
+    void switchTo(WebElement element);
 
     void refresh();
-
-    Object executeJS(String script, Object... args);
-
-    void scrollToTop();
-
-    void scrollToBottom();
-
 }

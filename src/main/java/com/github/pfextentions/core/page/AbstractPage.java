@@ -21,6 +21,7 @@ package com.github.pfextentions.core.page;
 
 import com.github.pfextentions.core.driverContext.DriverContext;
 import com.github.pfextentions.core.driverContext.DriverScreenshot;
+import com.github.pfextentions.core.targetLocator.PageTargetLocator;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ public abstract class AbstractPage implements Page {
 
     @Override
     public void open() {
+        driver().navigate().to("");
         driver().get(url());
         log.debug("Open page url: {}.", url());
     }

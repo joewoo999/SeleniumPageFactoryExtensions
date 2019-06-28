@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.page;
+package com.github.pfextentions.core.targetLocator;
 
 import com.github.pfextentions.core.driverContext.DriverContext;
 import org.openqa.selenium.Alert;
