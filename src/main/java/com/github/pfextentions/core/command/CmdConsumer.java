@@ -17,33 +17,10 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.targetLocator;
+package com.github.pfextentions.core.command;
 
-import java.net.URL;
+@FunctionalInterface
+public interface CmdConsumer<T, U> {
 
-public interface Window {
-
-    void openUrl(String url);
-
-    void openUrl(URL url);
-
-    String getUrl();
-
-    String getTitle();
-
-    void maximize();
-
-    void refresh();
-
-    void back();
-
-    void forward();
-
-    void switchTo(String handle);
-
-    void switchToByTitle(String title);
-
-    void switchToByNew();
-
-    void close();
+    void apply(T t, U u);
 }

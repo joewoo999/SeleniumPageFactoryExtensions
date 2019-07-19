@@ -41,18 +41,18 @@ public class PageElementHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] objects) {
-
-        if ("toString".equals(method.getName())) {
+        String methodName = method.getName();
+        if ("toString".equals(methodName)) {
             return "Proxy element for: " + locator;
         }
 
         Command command;
 
-        if ("execute".equals(method.getName())) {
+        if ("execute".equals(methodName)) {
             command = (Command) ((Supplier) objects[0]).get();
             objects = (Object[]) objects[1];
         } else {
-            command = Commands.getPropertiesInstance().get(method.getName());
+            command = Commands.getPropertiesInstance().get(methodName);
         }
 
         Object result = command.execute(locator, objects);

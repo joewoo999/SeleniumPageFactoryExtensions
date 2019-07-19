@@ -40,7 +40,6 @@ public abstract class AbstractPage implements Page {
 
     @Override
     public void open() {
-        driver().navigate().to("");
         driver().get(url());
         log.debug("Open page url: {}.", url());
     }

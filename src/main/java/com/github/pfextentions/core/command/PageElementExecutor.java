@@ -17,33 +17,29 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.targetLocator;
+package com.github.pfextentions.core.command;
 
-import java.net.URL;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
-public interface Window {
+import java.util.function.Supplier;
 
-    void openUrl(String url);
+public class PageElementExecutor<R> implements CommandExecutor<ElementLocator, R> {
+    @Override
+    public R execute(String commandName, ElementLocator locator, Object[] objects) {
+        return null;
+    }
 
-    void openUrl(URL url);
+    @Override
+    public R execute(Class commandClass, ElementLocator locator, Object[] objects) {
+        return null;
+    }
 
-    String getUrl();
+    @Override
+    public R execute(Supplier commandSupplier, ElementLocator locator, Object[] objects) {
+        return null;
+    }
 
-    String getTitle();
-
-    void maximize();
-
-    void refresh();
-
-    void back();
-
-    void forward();
-
-    void switchTo(String handle);
-
-    void switchToByTitle(String title);
-
-    void switchToByNew();
-
-    void close();
+    private static class PageElementCommands {
+        public static Commands INSTANCE = Commands.fromProperties("page_element.properties");
+    }
 }

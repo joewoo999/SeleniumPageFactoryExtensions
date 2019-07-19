@@ -17,33 +17,15 @@
  * under the License.
  */
 
-package com.github.pfextentions.core.targetLocator;
+package com.github.pfextentions.core.command;
 
-import java.net.URL;
+import java.util.function.Supplier;
 
-public interface Window {
+public interface CommandExecutor<T, R> {
 
-    void openUrl(String url);
+    R execute(String commandName, T t, Object[] objects);
 
-    void openUrl(URL url);
+    R execute(Class commandClass, T t, Object[] objects);
 
-    String getUrl();
-
-    String getTitle();
-
-    void maximize();
-
-    void refresh();
-
-    void back();
-
-    void forward();
-
-    void switchTo(String handle);
-
-    void switchToByTitle(String title);
-
-    void switchToByNew();
-
-    void close();
+    R execute(Supplier<?> commandSupplier, T t, Object[] objects);
 }
