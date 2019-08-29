@@ -20,6 +20,7 @@
 package com.github.pfextentions.common;
 
 import com.google.common.collect.Maps;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +45,7 @@ public class Property {
         return prop;
     }
 
+    @Contract("_ -> this")
     private Property load(String fileName) {
         fileName = fileName.endsWith(".properties") ? fileName : fileName.concat(".properties");
         InputStream is = ClassLoader.getSystemResourceAsStream(fileName);
@@ -55,6 +57,7 @@ public class Property {
                 throw new RuntimeException("Can not find file: " + fileName);
             }
         }
+
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             prop.load(br);
