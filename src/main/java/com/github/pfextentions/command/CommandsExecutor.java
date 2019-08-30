@@ -30,7 +30,11 @@ public abstract class CommandsExecutor<U, V, R> {
         this.cache = cache;
     }
 
-    public abstract R execute(String cmdName, U u, V v) throws Throwable;
+    public R execute(String cmdName, U u, V v) throws Throwable {
+        return this.execute(this.buildCommand(cmdName), u, v);
+    }
+
+    public abstract R execute(Command command, U u, V v) throws Throwable;
 
     public CommandsCache getCache() {
         return cache;

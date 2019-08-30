@@ -21,8 +21,8 @@ package com.github.pfextentions.command;
 
 import com.github.pfextentions.browser.Configuration;
 import com.github.pfextentions.browser.browsers.Chrome;
-import com.github.pfextentions.page.DemoPage;
-import com.github.pfextentions.page.factory.PageElementLocator;
+import com.github.pfextentions.DemoPage;
+import com.github.pfextentions.pageObject.factory.PageElementLocator;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;

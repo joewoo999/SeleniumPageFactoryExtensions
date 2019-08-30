@@ -19,8 +19,8 @@
 
 package com.github.pfextentions.command;
 
-import com.github.pfextentions.page.pageObject.commands.Click;
-import com.github.pfextentions.page.pageObject.commands.GetValue;
+import com.github.pfextentions.pageObject.commands.Click;
+import com.github.pfextentions.pageObject.commands.GetValue;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

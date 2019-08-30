@@ -1,7 +1,7 @@
 package com.github.pfextentions.browser.browsers;
 
 import com.github.pfextentions.browser.Configuration;
-import com.github.pfextentions.page.DemoPage;
+import com.github.pfextentions.DemoPage;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;

@@ -33,8 +33,7 @@ public class PageElementExecutor extends CommandsExecutor<ElementLocator, Object
         super(cache);
     }
 
-    public Object execute(String cmdName, ElementLocator elementLocator, Object[] objects) throws Throwable{
-        Command command = super.buildCommand(cmdName);
+    public Object execute(Command command, ElementLocator elementLocator, Object[] objects) throws Throwable{
         try {
             Method method = command.getClass().getDeclaredMethod("apply", ElementLocator.class, Object[].class);
             return method.invoke(command, elementLocator, objects);

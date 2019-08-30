@@ -1,6 +1,6 @@
 package com.github.pfextentions.browser;
 
-import com.github.pfextentions.page.DemoPage;
+import com.github.pfextentions.DemoPage;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
